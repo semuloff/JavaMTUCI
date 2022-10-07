@@ -1,5 +1,3 @@
-package Lab_1;
-
 public class Palindrome {
     // checks if a word belongs to a palindrome.
     public static void main(String[] args) {

@@ -1,5 +1,3 @@
-package com.lessons;
-
 public class Lesson_2 {
     public static void main(String[] args) {
         // variables and data types.
