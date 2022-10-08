@@ -30,6 +30,38 @@ public class Task_1 {
         System.out.println(operation(24, 15, 9)); // (24, 15, 9) -> "subtracted"
         System.out.println(operation(24, 26, 2)); // (24, 26, 2) -> "subtracted"
         System.out.println(operation(15, 11, 11)); // (15, 11, 11) -> "none"
+
+        // (6/10)
+        prettyPrint("(6/10)", "ctoa");
+        System.out.println(ctoa('A')); // ('A') -> 65
+        System.out.println(ctoa('m')); // ('m') -> 109
+        System.out.println(ctoa('[')); // ('[') -> 91
+        System.out.println(ctoa('\\')); // ('\') -> 92
+
+        // (7/10)
+        prettyPrint("(7/10)", "addUpTo");
+        System.out.println(addUpTo(3)); // (3) -> 6
+        System.out.println(addUpTo(10)); // (10) -> 55
+        System.out.println(addUpTo(7)); // (7) -> 28
+
+        // (8/10)
+        prettyPrint("(8/10)", "nextEdge");
+        System.out.println(nextEdge(8, 10)); // (8, 10) -> 17
+        System.out.println(nextEdge(5, 7)); // (5, 7) -> 11
+        System.out.println(nextEdge(9, 2)); // (9, 2) -> 10
+
+        // (9/10)
+        prettyPrint("(9/10)", "sumOfCubes");
+        System.out.println(sumOfCubes(new int[] {1, 5, 9})); // ([1, 5, 9]) -> 855
+        System.out.println(sumOfCubes(new int[] {3, 4, 5})); // ([3, 4, 5]) -> 216
+        System.out.println(sumOfCubes(new int[] {2})); // ([2]) -> 8
+        System.out.println(sumOfCubes(new int[] {})); // ([]) -> 0
+
+        // (10/10)
+        prettyPrint("(10/10)", "abcmath");
+        System.out.println(abcmath(42, 5, 10)); // (42, 5, 10) -> false
+        System.out.println(abcmath(5, 2, 1)); // (5, 2, 1) -> true
+        System.out.println(abcmath(1, 2, 3)); // (1, 2, 3) -> false
     }
 
     // PrettyPrint
@@ -87,4 +119,43 @@ public class Task_1 {
     }
 
     // Task (6/10)
+    public static int ctoa(char symbol) {
+        return (int) symbol;
+    }
+
+    // Task (7/10)
+    public static int addUpTo(int upHumb) {
+        int sum = 0;
+
+        for (int i = 0; i <= upHumb; ++i) {
+            sum += i;
+        }
+
+        return sum;
+    }
+
+    // Task (8/10)
+    public static int nextEdge(int firstSide, int secondSide) {
+        return firstSide + secondSide - 1;
+    }
+
+    // Task (9/10)
+    public static int sumOfCubes(int[] arrey) {
+        int sum = 0;
+
+        for (int index = 0; index < arrey.length; index++) {
+            sum += arrey[index] * arrey[index] * arrey[index];
+        }
+
+        return sum;
+    }
+
+    // Task (10/10)
+    public static boolean abcmath(int a, int b, int c) {
+        for (int i = 0; i < b; i++) {
+            a += a;
+        }
+
+        return (a % c) == 0 ? true : false;
+    }
 }
