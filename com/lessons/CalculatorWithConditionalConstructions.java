@@ -4,13 +4,14 @@ public class CalculatorWithConditionalConstructions {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter the first number: ");
+        System.out.print("Enter the first number: ");
         float firstOperand = scan.nextFloat();
-        System.out.println("Enter the second number: ");
+        System.out.print("Enter the second number: ");
         float secondOperand = scan.nextFloat();
 
         System.out.println("Enter the intent: ");
-        String operator = scan.next();
+        String operator = scan.nextLine();
+        operator = scan.nextLine();
 
         switch (operator) {
             case "+":
@@ -20,8 +21,13 @@ public class CalculatorWithConditionalConstructions {
                 System.out.println("Rezult: " + (firstOperand - secondOperand));
                 break;
             case "/":
-                System.out.println("Rezult: " + (firstOperand / secondOperand));
-                break;
+                if (secondOperand == 0) {
+                    System.out.println("Error!");
+                    break;
+                } else {
+                    System.out.println("Rezult: " + (firstOperand / secondOperand));
+                    break;
+                }
             case "*":
                 System.out.println("Rezult: " + (firstOperand * secondOperand));
                 break;
