@@ -34,6 +34,7 @@ public class Lesson_5 {
 
         do {
             System.out.println("Cycle 'do-while': number - " + n);
+            System.out.print("Enter the number: ");
             n = scanner.nextInt();
         } while (n != 0);
     }
