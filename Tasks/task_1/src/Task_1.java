@@ -156,6 +156,6 @@ public class Task_1 {
             a += a;
         }
 
-        return (a % c) == 0 ? true : false;
+        return a % c == 0;
     }
 }
