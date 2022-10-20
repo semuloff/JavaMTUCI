@@ -33,7 +33,13 @@ public class Task_2 {
         System.out.println(getDecimalPlaces("3.1")); // "3.1" -> 1
 
         // (6/10)
-        prettyPrint("(5/10)", "Fibonacci");
+        prettyPrint("(6/10)", "Fibonacci");
+        System.out.println(Fibonacci(3)); // (3) -> 3
+        System.out.println(Fibonacci(7)); // (3) -> 13
+        System.out.println(Fibonacci(12)); // (3) -> 144
+
+        // (7/10)
+        prettyPrint("(7/10)", "isValid");
     }
 
     // PrettyPrint
@@ -115,5 +121,17 @@ public class Task_2 {
     }
 
     // (6/10)
+    public static int Fibonacci(int n) {
+        switch (n) {
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+            default:
+                return Fibonacci(n - 1) + Fibonacci(n - 2);
+        }
+    }
+
+    // (7/10)
 }
 
