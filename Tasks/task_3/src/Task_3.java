@@ -9,6 +9,11 @@ public class Task_3 {
 
         // (2/10)
         prettyPrint("(2/10)", "findZip");
+        System.out.println(findZip("all zip files are zipped")); // ("all zip files are zipped") -> 18
+        System.out.println(findZip("all zip files are compressed")); // ("all zip files are compressed") -> -1
+
+        // (3/10)
+        prettyPrint("(3/10)", "checkPerfect");
     }
 
     // PrettyPrint
@@ -28,9 +33,22 @@ public class Task_3 {
     }
 
     // (2/10)
-    public static void findZip(String line) {
+    public static int findZip(String line) {
+        boolean flag = false;
 
+        for (int index = 0; index < line.length(); index++) {
+            if ((line.charAt(index) == 'Z' || line.charAt(index) == 'z')
+                    && line.charAt(index + 1) == 'i' && line.charAt(index + 2) == 'p') {
+                if (flag == false)
+                    flag = true;
+                else
+                    return index;
+            }
+        }
+
+        return -1;
     }
 
+    // (3/10)
 }
 
