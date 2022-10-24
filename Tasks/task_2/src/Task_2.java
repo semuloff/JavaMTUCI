@@ -38,6 +38,7 @@ public class Task_2 {
         for (int i = 0; i < ans.length; i++){
             System.out.print(ans[i] + " ");
         }
+
         System.out.println();
 
         // (5/10)
@@ -225,7 +226,6 @@ public class Task_2 {
                     count -= 1;
             } else
                 count += 3;
-
         }
 
         return count;
