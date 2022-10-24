@@ -22,9 +22,23 @@ public class Task_2 {
 
         // (4/10)
         prettyPrint("(4/10)", "cumulativeSum");
-        System.out.println(cumulativeSum(new int[] {1, 2, 3})); // [1, 2, 3] -> [1, 3, 6]
-        System.out.println(cumulativeSum(new int[] {1, -2, 3})); // [1, -2, 3] -> [1, -1, 2]
-        System.out.println(cumulativeSum(new int[] {3, 3, -2, 408, 3, 3})); // [3, 3, -2, 408, 3, 3] -> [3, 6, 4, 412, 415, 418]
+        int[] ans = cumulativeSum(new int[] {1, 2, 3}); // [1, 2, 3] -> [1, 3, 6]
+        for (int i = 0; i < ans.length; i++){
+            System.out.print(ans[i] + " ");
+        }
+
+        System.out.println();
+        ans = cumulativeSum(new int[] {1, -2, 3}); // [1, -2, 3] -> [1, -1, 2]
+        for (int i = 0; i < ans.length; i++){
+            System.out.print(ans[i] + " ");
+        }
+
+        System.out.println();
+        ans = cumulativeSum(new int[] {3, 3, -2, 408, 3, 3}); // [3, 3, -2, 408, 3, 3] -> [3, 6, 4, 412, 415, 418]
+        for (int i = 0; i < ans.length; i++){
+            System.out.print(ans[i] + " ");
+        }
+        System.out.println();
 
         // (5/10)
         prettyPrint("(5/10)", "cumulativeSum");
@@ -105,7 +119,7 @@ public class Task_2 {
             sum += arr[index];
         }
 
-        return (sum % lenght == 0) ? true : false;
+        return sum % lenght == 0;
     }
 
     // (4/10)
@@ -126,10 +140,6 @@ public class Task_2 {
             answer[index] = sum;
         }
 
-        // print array's values.
-        for (int i=0; i < answer.length; i++) {
-            System.out.println(answer[i]);
-        }
         return answer;
     }
 
