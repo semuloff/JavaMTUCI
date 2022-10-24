@@ -14,6 +14,32 @@ public class Task_3 {
 
         // (3/10)
         prettyPrint("(3/10)", "checkPerfect");
+        System.out.println(checkPerfect(6)); // (6) -> true
+        System.out.println(checkPerfect(28)); // (28) -> true
+        System.out.println(checkPerfect(496)); // (496) -> true
+        System.out.println(checkPerfect(12)); // (12) -> false
+        System.out.println(checkPerfect(97)); // (97) -> false
+
+        // (4/10)
+        prettyPrint("(4/10)", "flipEndChars");
+        System.out.println(flipEndChars("Cat, dog, and mouse.")); // ("Cat, dog, and mouse.") -> ".at, dog, and mouseC"
+        System.out.println(flipEndChars("ada")); // ("ada") -> "Two's a pair."
+        System.out.println(flipEndChars("Ada")); // ("Ada") -> "adA"
+        System.out.println(flipEndChars("z")); // ("z") -> "Incompatible."
+
+        // (5/10)
+        prettyPrint("(5/10)", "isValidHexCode");
+        System.out.println(isValidHexCode("#CD5C5C")); // ("#CD5C5C") -> true
+        System.out.println(isValidHexCode("#EAECEE")); // ("#EAECEE") -> true
+        System.out.println(isValidHexCode("#eaecee")); // ("#eaecee") -> true
+        System.out.println(isValidHexCode("#CD5C58C")); // ("#CD5C58C") -> false
+        System.out.println(isValidHexCode("#CD5C5Z")); // ("#CD5C5Z") -> false
+        System.out.println(isValidHexCode("#CD5C&C")); // ("#CD5C&C") -> false
+        System.out.println(isValidHexCode("CD5C5C")); // ("CD5C5C") -> false
+
+        // (6/10)
+        prettyPrint("(6/10)", "same");
+
     }
 
     // PrettyPrint
@@ -50,5 +76,56 @@ public class Task_3 {
     }
 
     // (3/10)
+    public static boolean checkPerfect(int number) {
+        int sum = 0;
+
+        for (int i = 1; i < number; i++) {
+            if (number % i == 0)
+                sum += i;
+        }
+
+        return sum == number;
+    }
+
+    // (4/10)
+    public static String flipEndChars(String line) {
+        String newLine = "";
+
+        if (line.length() < 2)
+            return "Incompatible.";
+        if (line.charAt(0) == line.charAt(line.length() - 1))
+            return "Two's a pair.";
+
+        newLine += line.charAt(line.length() - 1);
+        for (int index = 1; index < line.length() - 1; index++) {
+            newLine += line.charAt(index);
+        }
+        newLine += line.charAt(0);
+
+        return newLine;
+    }
+
+    // (5/10)
+    public static boolean isValidHexCode(String code) {
+        char symbol;
+
+        if (code.length() - 1 != 6 || code.charAt(0) != '#')
+            return false;
+
+        for (int index = 1; index < code.length(); index++) {
+            symbol = code.charAt(index);
+            if (!((((int) 'A' <= (int) symbol && (int) symbol <= (int) 'F')
+                    || ((int) 'a' <= (int) symbol && (int) symbol <= (int) 'f')
+                    || ((int) symbol >= (int) '0' && (int) symbol <= (int) '9'))))
+                return false;
+        }
+
+        return true;
+    }
+
+    // (6/10)
+    public static void same(int[] arr1, int[] arr2){
+
+    }
 }
 
