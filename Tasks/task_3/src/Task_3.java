@@ -40,6 +40,19 @@ public class Task_3 {
         // (6/10)
         prettyPrint("(6/10)", "same");
 
+
+        // (7/10)
+        prettyPrint("(7/10)", "isKaprekar");
+        System.out.println(isKaprekar(3)); // (3) -> false
+        System.out.println(isKaprekar(5)); // (5) -> false
+        System.out.println(isKaprekar(297)); // (297) -> true
+
+        // (8/10)
+        prettyPrint("(8/10)", "longestZero");
+        System.out.println(longestZero("01100001011000")); // ("01100001011000") -> "0000"
+        System.out.println(longestZero("100100100")); // ("100100100") -> "00"
+        System.out.println(longestZero("11111")); // ("11111") -> ""
+
     }
 
     // PrettyPrint
@@ -126,6 +139,55 @@ public class Task_3 {
     // (6/10)
     public static void same(int[] arr1, int[] arr2){
 
+    }
+
+    // (7/10)
+    public static boolean isKaprekar(int number) {
+        String tempLine = Integer.toString(number * number);
+        String leftSide = "";
+        String rightSide = "";
+
+        // splitting into two lexicographic parts.
+        if (tempLine.length() % 2 == 0 || (tempLine.length() != 1 && tempLine.length() % 2 == 1)) {
+            for (int index = 0; index < tempLine.length() / 2; index++) {
+                leftSide += tempLine.charAt(index);
+            }
+
+            for (int index = tempLine.length() / 2; index < tempLine.length(); index++) {
+                rightSide += tempLine.charAt(index);
+            }
+        } else {
+            leftSide = "0";
+            rightSide = tempLine;
+        }
+
+        // condition check.
+        return (Integer.parseInt(leftSide) + Integer.parseInt(rightSide) == number);
+    }
+
+    // (8/10)
+    public static String longestZero(String line) {
+        int maxLenght = 0;
+        int tempLenght = 0;
+        String maxLine = "";
+        String tempLine = "";
+
+        // iterate over all characters in a string.
+        for (int index = 0; index < line.length(); index++) {
+            if (line.charAt(index) == '0') {
+                tempLenght += 1;
+                tempLine += line.charAt(index);
+            } else {
+                if (tempLenght > maxLenght) {
+                    maxLenght = tempLenght;
+                    maxLine = tempLine;
+                }
+                tempLenght = 0;
+                tempLine = "";
+            }
+        }
+
+        return maxLine;
     }
 }
 
