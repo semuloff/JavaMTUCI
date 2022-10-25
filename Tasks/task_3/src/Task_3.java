@@ -53,6 +53,18 @@ public class Task_3 {
         System.out.println(longestZero("100100100")); // ("100100100") -> "00"
         System.out.println(longestZero("11111")); // ("11111") -> ""
 
+        // (9/10)
+        prettyPrint("(9/10)", "nextPrime");
+        System.out.println(nextPrime(12)); // (12) -> 13
+        System.out.println(nextPrime(24)); // (24) -> 29
+        System.out.println(nextPrime(11)); // (11) -> 11
+
+        // (10/10)
+        prettyPrint("(10/10)", "rightTriangle");
+        System.out.println(rightTriangle(3,4,5)); // true
+        System.out.println(rightTriangle(145,105,100)); // true
+        System.out.println(rightTriangle(70,130,110));  // false
+
     }
 
     // PrettyPrint
@@ -188,6 +200,55 @@ public class Task_3 {
         }
 
         return maxLine;
+    }
+
+    // (9/10)
+    public static int nextPrime(int n) {
+        boolean flag = true;
+
+        while (true) {
+            flag = true;
+
+            // looking for dividers.
+            for (int i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i == 0) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            if (flag == false)
+                n += 1;
+            else
+                break;
+        }
+
+        return n;
+    }
+
+    // (10/10)
+    public static boolean rightTriangle(int x, int y, int z) {
+        int temp;
+
+        // Ascending sorted x, y and z.
+        if (x < y) {
+            temp = x;
+            x = y;
+            y = temp;
+        }
+        if (z > x) {
+            temp = x;
+            x = z;
+            z = y;
+            y = temp;
+        }
+        if (z > y) {
+            temp = y;
+            y = z;
+            z = temp;
+        }
+
+        return Math.pow(x, 2) == Math.pow(y, 2) + Math.pow(z, 2);
     }
 }
 
