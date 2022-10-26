@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 public class Task_3 {
 
     public static void main(String[] args) {
@@ -39,7 +41,9 @@ public class Task_3 {
 
         // (6/10)
         prettyPrint("(6/10)", "same");
-
+        System.out.println(same(new int[] {1, 3, 4, 4, 4}, new int[] {2, 5, 7})); // ([1, 3, 4, 4, 4], [2, 5, 7]) -> true
+        System.out.println(same(new int[] {9, 8, 7, 6}, new int[] {4, 4, 3, 1})); // ([9, 8, 7, 6], [4, 4, 3, 1]) -> false
+        System.out.println(same(new int[] {2}, new int[] {3, 3, 3, 3, 3})); // ([2], [3, 3, 3, 3, 3]) -> true
 
         // (7/10)
         prettyPrint("(7/10)", "isKaprekar");
@@ -64,7 +68,6 @@ public class Task_3 {
         System.out.println(rightTriangle(3,4,5)); // true
         System.out.println(rightTriangle(145,105,100)); // true
         System.out.println(rightTriangle(70,130,110));  // false
-
     }
 
     // PrettyPrint
@@ -149,8 +152,17 @@ public class Task_3 {
     }
 
     // (6/10)
-    public static void same(int[] arr1, int[] arr2){
+    public static boolean same(int[] arr1, int[] arr2){
+        HashSet<Integer> uniqueArr1 = new HashSet<>();
+        HashSet<Integer> uniqueArr2 = new HashSet<>();
 
+        for (int index = 0; index < arr1.length; index++)
+            uniqueArr1.add(arr1[index]);
+
+        for (int index = 0; index < arr2.length; index++)
+            uniqueArr2.add(arr2[index]);
+
+        return uniqueArr1.size() == uniqueArr2.size();
     }
 
     // (7/10)
