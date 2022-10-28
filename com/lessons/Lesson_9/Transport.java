@@ -6,6 +6,26 @@ public class Transport {
     public String color;
     public byte[] coordinate;
 
+    // class constructor.
+    // this constructor will work if we create an instance of the class without parameters.
+    public Transport() {
+        speed = 0.0f;
+        weight = 0;
+        color = "White";
+        coordinate = new byte[]{0,0,0};
+
+        System.out.println("[Object created!]");
+    }
+
+    // this constructor will work if we create an instance of a class with parameters.
+    public Transport(float speed, int weight, String color, byte[] coordinate) {
+        this.setW(speed, weight, color, coordinate);
+
+        System.out.println("[Object created!]");
+
+        this.printOptions();
+    }
+
     public void printOptions() {
         System.out.println("Speed: " + speed);
         System.out.println("Weight: " + weight);
@@ -25,10 +45,10 @@ public class Transport {
         coordinate[2] += zCoord;
     }
 
-    public void setW(float _speed, int _weight, String _color, byte[] _coordinate) {
-        speed = _speed;
-        weight = _weight;
-        color = _color;
-        coordinate = _coordinate;
+    public void setW(float speed, int weight, String color, byte[] coordinate) {
+        this.speed = speed;
+        this.weight = weight;
+        this.color = color;
+        this.coordinate = coordinate;
     }
 }
