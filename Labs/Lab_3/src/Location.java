@@ -23,4 +23,30 @@ public class Location
     {
         this(0, 0);
     }
+
+    // переопределение метода equals()
+    public boolean equals(Object object) {
+
+        // проверка объекта на принадлежность к классу Location?
+        if (object instanceof Location) {
+            Location otherCoordinate = (Location) object;
+
+            // проверяем координаты объекта на равенство текущих координат.
+            if (xCoord == otherCoordinate.xCoord && yCoord == otherCoordinate.yCoord)
+                return true;
+        }
+
+        return false;
+    }
+
+    public int hashCode() {
+        // определяем и инициализируем любое числою.
+        int answer = 11;
+
+        // создаем для объекта свой хэшкод.
+        answer = xCoord + 111 * answer;
+        answer = yCoord + 29 * answer;
+
+        return answer;
+    }
 }
