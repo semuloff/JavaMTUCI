@@ -1,36 +1,27 @@
 package com.lessons.Lesson_9;
 
 public class Transport {
-    public float speed;
-    public int weight;
-    public String color;
-    public byte[] coordinate;
+    private float speed;
+    private int weight;
+    private String color;
+    private byte[] coordinate;
 
-    // class constructor.
+    // class constructors.
     // this constructor will work if we create an instance of the class without parameters.
-    public Transport() {
-        speed = 0.0f;
-        weight = 0;
-        color = "White";
-        coordinate = new byte[]{0,0,0};
-
-        System.out.println("[Object created!]");
+    protected Transport() {
+        this.setValues(0.0f, 0, "White", new byte[]{0,0,0});
     }
 
     // this constructor will work if we create an instance of a class with parameters.
-    public Transport(float speed, int weight, String color, byte[] coordinate) {
-        this.setW(speed, weight, color, coordinate);
-
-        System.out.println("[Object created!]");
-
-        this.printOptions();
+    protected Transport(float speed, int weight, String color, byte[] coordinate) {
+        this.setValues(speed, weight, color, coordinate);
     }
 
-    public void printOptions() {
+    protected void printValues() {
         System.out.println("Speed: " + speed);
         System.out.println("Weight: " + weight);
         System.out.println("Color: " + color);
-        System.out.println("Coordinate: " + coordinate[0] + ", " + coordinate[1] + ", " + coordinate[2] + "\n");
+        System.out.print("Coordinate: " + coordinate[0] + ", " + coordinate[1] + ", " + coordinate[2] + "\n");
     }
 
     public void moveX(int xCoord) {
@@ -45,7 +36,7 @@ public class Transport {
         coordinate[2] += zCoord;
     }
 
-    public void setW(float speed, int weight, String color, byte[] coordinate) {
+    protected void setValues(float speed, int weight, String color, byte[] coordinate) {
         this.speed = speed;
         this.weight = weight;
         this.color = color;
