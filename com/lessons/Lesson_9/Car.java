@@ -26,7 +26,4 @@ public class Car extends Transport{
         super.printValues();
         System.out.println("Worth: " + worth + "\n");
     }
-
-
-
 }
