@@ -21,6 +21,7 @@ public class Truck extends Transport{
         System.out.println("Values set!\n");
     }
 
+    @Override
     public void printValues() {
         System.out.println("Parameters: ");
         super.printValues();
