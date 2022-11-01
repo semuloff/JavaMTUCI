@@ -9,10 +9,12 @@ public class Main {
         // methods in use example.
         Tayota.setValues(245f, 1453, "Purpur", true, new byte[] {122, 0, 12});
         Tayota.printValues();
+        Tayota.stopObject();
 
         // class instance with parameters.
         Car BMV = new Car(245f, 1453, "Purpur", true, new byte[] {122, 0, 12});
         BMV.printValues();
+        BMV.moveZ(12);
 
         // other class instance.
         Truck Jac = new Truck();
@@ -22,5 +24,7 @@ public class Main {
 
         Truck Volvo = new Truck(140.4f, 3300, "Blue", true, new byte[] {122, 0, 111});
         Volvo.printValues();
+        Volvo.stopObject();
+        Volvo.moveY(12);
     }
 }
