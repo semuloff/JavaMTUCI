@@ -1,8 +1,9 @@
-package com.lessons.Lesson_9;
+package com.lessons.Lesson_9.src;
 
-public class Truck extends Transport{
+
+public class Truck extends Transport {
     private boolean workload;
-    public Engine engine = new Engine();
+    protected Engine engine = new Engine();
 
     public Truck() {
         this.setValues(0f, 0, "None", false, new byte[] {0, 0, 0});
@@ -23,6 +24,11 @@ public class Truck extends Transport{
         this.workload = workload;
 
         System.out.println("[Values set!]\n");
+    }
+
+    @Override
+    public void info() {
+        this.engine.info();
     }
 
     @Override

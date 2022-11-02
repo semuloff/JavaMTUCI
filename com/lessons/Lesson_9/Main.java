@@ -1,5 +1,9 @@
 package com.lessons.Lesson_9;
 
+import com.lessons.Lesson_9.src.Car;
+import com.lessons.Lesson_9.src.Truck;
+
+
 public class Main {
     public static void main(String[] args) {
         // basics of OOP.
@@ -31,7 +35,7 @@ public class Main {
         Volvo.stopObject();
         Volvo.moveY(12);
         Volvo.description();
-        Volvo.engine.info();
+        Volvo.info();
 
 
         // anonymous class.
@@ -41,6 +45,7 @@ public class Main {
                 System.out.println("This is a flying car.\n");
             }
         };
+
         flyingCar.description();
     }
 }

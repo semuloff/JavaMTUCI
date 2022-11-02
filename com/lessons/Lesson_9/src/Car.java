@@ -1,8 +1,9 @@
-package com.lessons.Lesson_9;
+package com.lessons.Lesson_9.src;
 
-public class Car extends Transport{
+
+public class Car extends Transport {
     private boolean worth;
-    public Engine engine = new Engine();
+    protected Engine engine = new Engine();
 
     public Car() {
         this.setValues(0f, 0, "None", false, new byte[] {0, 0, 0});
@@ -22,6 +23,11 @@ public class Car extends Transport{
         super.setValues(speed, weight, color, coordinate);
         this.worth = worth;
         System.out.println("[Values set!]\n");
+    }
+
+    @Override
+    public void info() {
+        this.engine.info();
     }
 
     @Override

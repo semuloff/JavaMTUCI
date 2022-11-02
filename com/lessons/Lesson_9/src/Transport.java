@@ -1,4 +1,4 @@
-package com.lessons.Lesson_9;
+package com.lessons.Lesson_9.src;
 
 public abstract class Transport {
     protected float speed;
@@ -16,11 +16,11 @@ public abstract class Transport {
             this.mileage = mileage;
         }
 
-        public void info() {
+        protected void info() {
             if (isReady)
-                System.out.println("[Engine is ready! Mileage: " + this.mileage + " km.]");
+                System.out.println("[Engine is ready! Mileage: " + this.mileage + " km.]\n");
             else
-                System.out.println("[Engine is not ready! Mileage: " + this.mileage + " km.]");
+                System.out.println("[Engine is not ready! Mileage: " + this.mileage + " km.]\n");
         }
     }
 
@@ -47,4 +47,6 @@ public abstract class Transport {
     public abstract void stopObject();
 
     public abstract void description();
+
+    public abstract void info();
 }
