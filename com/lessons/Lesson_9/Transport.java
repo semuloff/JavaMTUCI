@@ -6,6 +6,24 @@ public abstract class Transport {
     private String color;
     protected byte[] coordinate;
 
+
+    protected class Engine {
+        private boolean isReady;
+        private float mileage;
+
+        protected void setValues(boolean isReady, float mileage) {
+            this.isReady = isReady;
+            this.mileage = mileage;
+        }
+
+        public void info() {
+            if (isReady)
+                System.out.println("[Engine is ready! Mileage: " + this.mileage + " km.]");
+            else
+                System.out.println("[Engine is not ready! Mileage: " + this.mileage + " km.]");
+        }
+    }
+
     protected void printValues() {
         System.out.println("Speed: " + speed);
         System.out.println("Weight: " + weight);
@@ -27,4 +45,6 @@ public abstract class Transport {
     public abstract void moveZ(int zCoord);
 
     public abstract void stopObject();
+
+    public abstract void description();
 }
