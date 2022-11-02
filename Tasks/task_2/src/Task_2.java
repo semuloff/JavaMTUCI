@@ -96,7 +96,7 @@ public class Task_2 {
         return answer;
     }
 
-    //(2/10)
+    // (2/10)
     public static int differenceMaxMin(int[] arr) {
         int maxNumber = arr[0];
         int minNumber = maxNumber;
