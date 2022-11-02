@@ -1,7 +1,7 @@
-package com.lessons.Lesson_9;
+package com.lessons.Lesson_9_16;
 
-import com.lessons.Lesson_9.src.Car;
-import com.lessons.Lesson_9.src.Truck;
+import com.lessons.Lesson_9_16.src.Car;
+import com.lessons.Lesson_9_16.src.Truck;
 
 
 public class Main {

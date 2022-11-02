@@ -1,4 +1,4 @@
-package com.lessons.Lesson_9.src;
+package com.lessons.Lesson_9_16.src;
 
 public abstract class Transport {
     protected float speed;
