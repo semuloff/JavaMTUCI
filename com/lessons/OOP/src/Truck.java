@@ -1,4 +1,4 @@
-package com.lessons.Lesson_9_16.src;
+package com.lessons.OOP.src;
 
 
 public class Truck extends Transport {
