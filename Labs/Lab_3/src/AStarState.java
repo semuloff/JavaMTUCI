@@ -8,8 +8,7 @@ import java.util.*;
  * provides the basic operations that the A* pathfinding algorithm needs to
  * perform its processing.
  **/
-public class AStarState
-{
+public class AStarState {
     /**
      * This is a reference to the map that the A* algorithm
      * is navigating.
@@ -54,7 +53,7 @@ public class AStarState
         // Инициализируем набор ключей всех открытых путевых точек.
         Set openWaypointKeys = openWaypoints.keySet();
 
-        // Инициалицируем итератор для перебора ключей
+        // Инициалицируем итератор для перебора ключей.
         Iterator _iterator = openWaypointKeys.iterator();
 
         // Инициализируем лучшую путевую точку.
@@ -149,8 +148,8 @@ public class AStarState
      * Возвращает true, если набор закрытых путевых точек содержит путевую точку
      * для указанного места.
      **/
-    public boolean isLocationClosed(Location loc)
+    public boolean isLocationClosed(Location location)
     {
-        return closedWaypoints.containsKey(loc);
+        return closedWaypoints.containsKey(location);
     }
 }
