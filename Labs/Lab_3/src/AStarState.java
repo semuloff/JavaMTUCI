@@ -46,8 +46,7 @@ public class AStarState
      * with the minimum total cost.  If there are no open waypoints, this
      * method returns <code>null</code>.
      **/
-    public Waypoint getMinOpenWaypoint()
-    {
+    public Waypoint getMinOpenWaypoint() {
         // Если в открытом наборе нет вершин - возвращаем null.
         if (numOpenWaypoints() == 0)
             return null;
@@ -130,13 +129,11 @@ public class AStarState
         return true;
     }
 
-
     /** Returns the current number of open waypoints. **/
     public int numOpenWaypoints()
     {
         return openWaypoints.size();
     }
-
 
     /**
      * Этот метод перемещает путевую точку в указанное место из
