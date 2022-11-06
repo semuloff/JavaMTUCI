@@ -15,13 +15,19 @@ public class Task_4 {
         System.out.println(split("((())())(()(()()))")); // split("((())())(()(()()))") -> ["((())())", "(()(()()))"]
 
         // (3/10)
-        prettyPrint("(3/10)", " toCamelCase & toSnakeCase");
+        prettyPrint("(3/10)", "toCamelCase & toSnakeCase");
         System.out.println(toCamelCase("hello_edabit")); // toCamelCase("hello_edabit") -> "helloEdabit"
         System.out.println(toSnakeCase("helloEdabit")); // toSnakeCase("helloEdabit") -> "hello_edabit"
         System.out.println(toCamelCase("is_modal_open")); // toCamelCase("is_modal_open") -> "isModalOpen"
         System.out.println(toSnakeCase("getColor")); // toSnakeCase("getColor") -> "get_color"
 
+        // (4/10)
+        prettyPrint("(4/10)", "overTime");
+        System.out.println(overTime(new float[] {9, 17, 30, 1.5f})); // [9, 17, 30, 1.5] -> "$240.00"
+        System.out.println(overTime(new float[] {16, 18, 30, 1.8f})); // [16, 18, 30, 1.8] -> "$84.00"
+        System.out.println(overTime(new float[] {13.25f, 15, 30, 1.5f})); // [13.25, 15, 30, 1.5] -> "$52.50"
     }
+    
     // PrettyPrint
     public static void prettyPrint(String task, String functionName) {
         System.out.println("\n~~~~~~ " + task + ": " + functionName + " ~~~~~~");
@@ -123,6 +129,23 @@ public class Task_4 {
     }
 
     // (4/10)
+    public static String overTime(float data[]) {
+        /** [0] - The begining of the work day.
+         * [1] - End of the working day.
+         * [2] - Hourly rate.
+         * [3] - Overtime multiplier.
+         * **/
+        float payment = 0;
+
+        if (data[0] >= 9f && data[1] <= 17f)
+            payment = (data[1] - data[0]) * data[2];
+        else if (data[0] >= 9f && data[1] > 17f)
+            payment = (17f - data[0]) * data[2] + (data[1] - 17f) * data[2] * data[3];
+        else payment = (data[1] - 17f) * data[2] * data[3];
+
+
+        return "$" + Float.toString(payment) + "0";
+    }
 
 }
 
