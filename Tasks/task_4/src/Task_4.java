@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Task_4 {
 
@@ -49,6 +48,14 @@ public class Task_4 {
 
         // (8/10)
         prettyPrint("(8/10)", "doesRhyme");
+        System.out.println(doesRhyme("Sam I am!", "Green eggs and ham.")); // -> true
+        System.out.println(doesRhyme("Sam I am!", "Green eggs and HAM")); // -> true
+        System.out.println(doesRhyme("You are off to the races", "a splendid day.")); // -> false
+        System.out.println(doesRhyme("and frequently do?", "you gotta move.")); // -> false
+
+        // (9/10)
+        prettyPrint("(9/10)", "trouble");
+
     }
     
     // PrettyPrint
@@ -276,5 +283,28 @@ public class Task_4 {
     }
 
     // (8/10)
+    public static boolean doesRhyme(String lineOne, String lineTwo) {
+        String[] splitedLineOne = lineOne.toLowerCase().split(" ");
+        String[] splitedLineTwo = lineTwo.toLowerCase().split(" ");
+        char[] vowels = new char[] {'a', 'e', 'i', 'o', 'u', 'y'};
+
+        // check for the presence of two vowels at the same time in strings in a loop.
+        for (int charIndex = 0; charIndex < vowels.length; charIndex++) {
+            if (splitedLineOne[splitedLineOne.length - 1].contains(Character.toString(vowels[charIndex]))) {
+                if (!splitedLineTwo[splitedLineTwo.length - 1].contains(Character.toString(vowels[charIndex])))
+                    return false;
+            } else if (splitedLineTwo[splitedLineTwo.length - 1].contains(Character.toString(vowels[charIndex]))) {
+                if (!splitedLineOne[splitedLineOne.length - 1].contains(Character.toString(vowels[charIndex])))
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    // (9/10)
+    public static void trouble(int numberOne, int numberTwo) {
+
+    }
 }
 
