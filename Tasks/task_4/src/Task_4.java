@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+
 
 public class Task_4 {
-
     public static void main(String[] args) {
         // (1/10)
         prettyPrint("(1/10)", "wordProcessor");
@@ -55,7 +56,16 @@ public class Task_4 {
 
         // (9/10)
         prettyPrint("(9/10)", "trouble");
+        System.out.println(trouble(451999277, 41177722899L)); // (451999277, 41177722899) -> True
+        System.out.println(trouble(1222345, 12345)); // (1222345, 12345) -> False
+        System.out.println(trouble(666789, 12345667)); // (666789, 12345667) -> True
+        System.out.println(trouble(33789, 12345337)); // (33789, 12345337) -> False
 
+        // (10/10)
+        prettyPrint("(10/10)", "countUniqueBooks");
+        System.out.println(countUniqueBooks("AZYWABBCATTTA", 'A')); // ("AZYWABBCATTTA", 'A') -> 4
+        System.out.println(countUniqueBooks("$AA$BBCATT$C$$B$", '$')); // "$AA$BBCATT$C$$B$", '$') -> 3
+        System.out.println(countUniqueBooks("ZZABCDEF", 'Z')); // ("ZZABCDEF", 'Z') -> 0
     }
     
     // PrettyPrint
@@ -303,8 +313,81 @@ public class Task_4 {
     }
 
     // (9/10)
-    public static void trouble(int numberOne, int numberTwo) {
+    public static boolean trouble(long numberOne, long numberTwo) {
+        int count;
+        char symbol;
+        boolean flag;
 
+        String toStringNumbOne = Long.toString(numberOne);
+        String toStringNumbTwo = Long.toString(numberTwo);
+
+        // loop through each character of the number.
+        for (int indexNumbOne = 0; indexNumbOne < toStringNumbOne.length(); indexNumbOne++) {
+            symbol = toStringNumbOne.charAt(indexNumbOne);
+            count = 0;
+            flag = false;
+
+            // from the selected number, we are looking for the desired number of repetitions in a row, that is, 3 repetitions.
+            for (int indexSymb = indexNumbOne; indexSymb < toStringNumbOne.length(); indexSymb++) {
+                if (toStringNumbOne.charAt(indexSymb) == symbol)
+                    count++;
+
+                if (count == 3) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            // looking for the required number of repetitions in a row of this character in the second line.
+            if (flag) {
+                count = 0;
+                for (int indexNumbTwo = 0; indexNumbTwo < toStringNumbTwo.length(); indexNumbTwo++) {
+                    if (toStringNumbTwo.charAt(indexNumbTwo) == symbol)
+                        count++;
+
+                    if (count == 2)
+                        return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    // (10/10)
+    public static int countUniqueBooks(String stringSequence, char bookEnd) {
+        boolean flag = false;
+        HashSet<String> uniqueBooks = new HashSet<String>();
+
+        // loop through the string.
+        for (int indexBooks = 0; indexBooks < stringSequence.length(); indexBooks++) {
+            // if we have reached the border of the pair.
+            if (flag && stringSequence.charAt(indexBooks) == bookEnd) {
+                flag = false;
+                continue;
+            }
+
+            // if there is a pair, then add to the collection.
+            if (flag) {
+                uniqueBooks.add(Character.toString(stringSequence.charAt(indexBooks)));
+            } else {
+                // if found the first part of the pair.
+                if (stringSequence.charAt(indexBooks) == bookEnd) {
+                    // loop through, hoping to find the second part of the pair starting from the position of the first part of the pair + 1.
+                    for (int indexSecondPart = indexBooks + 1; indexSecondPart < stringSequence.length(); indexSecondPart++) {
+                        if (stringSequence.charAt(indexSecondPart) == bookEnd) {
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if (flag)
+                        continue;
+                }
+            }
+        }
+
+        return uniqueBooks.size();
     }
 }
 
