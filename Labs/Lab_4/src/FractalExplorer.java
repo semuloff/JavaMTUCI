@@ -38,7 +38,7 @@ public class FractalExplorer {
         // Создаем кнопку для сброса.
         JButton resetButton = new JButton("Reset scale.");
 
-        // Обработчик для конпки сброса.
+        // Обработчик для кнопки сброса.
         ResetHandler handler = new ResetHandler();
         resetButton.addActionListener(handler);
         frame.add(resetButton, BorderLayout.SOUTH);
@@ -80,7 +80,7 @@ public class FractalExplorer {
                 int iteration = fractal.numIterations(xCoord, yCoord);
 
                 if (iteration == -1)
-                    display.drawPixel(x, y, 0);
+                    display.drawPixel(x, y, 256);
                 else {
                     float hue = 0.7f + (float) iteration / 200f;
                     int rgbColor = Color.HSBtoRGB(hue, 1f, 1f);

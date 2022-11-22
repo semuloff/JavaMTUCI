@@ -13,9 +13,6 @@ public class Mandelbrot extends FractalGenerator {
         rectangle.width = 3;
     }
 
-    /*
-     * returns the number of iterations for the corresponding coordinate.
-     */
     public int numIterations(double x, double y) {
         /**
          * Функция для фрактала Мандельброта.
