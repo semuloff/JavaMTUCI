@@ -1,3 +1,5 @@
+package Labs.Lab_4.src;
+
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JButton;
