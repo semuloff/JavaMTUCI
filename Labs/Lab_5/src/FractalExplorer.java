@@ -3,9 +3,12 @@ package Labs.Lab_5.src;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
+import javax.swing.filechooser.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.*;
+
 
 public class FractalExplorer {
     private int displaySize;
@@ -103,7 +106,42 @@ public class FractalExplorer {
                 fractal.getInitialRange(rectangle);
                 drawFractal();
             } else if (commandName.equals("Save")) {
+                // Компонент для выбора путей для сохраниения.
+                JFileChooser pathChooser = new JFileChooser();
 
+                // Сохраните только изображения PNG формата.
+                FileFilter extensionFilter =
+                        new FileNameExtensionFilter("PNG Images", "png");
+                pathChooser.setFileFilter(extensionFilter);
+
+                /**
+                 * Средство выбора гарантированно не разрешит пользователю отличных от png форматов.
+                 **/
+                pathChooser.setAcceptAllFileFilterUsed(false);
+
+                /**
+                 * Выскакивает окно «Сохранить файл», которое позволяет
+                 * пользователю выбирать каталог и файл для сохранения.
+                 **/
+                int userSelection = pathChooser.showSaveDialog(display);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+                    // Получение файла.
+                    java.io.File file = pathChooser.getSelectedFile();
+
+                    // Попытка сохранения изображения на диск.
+                    try {
+                        BufferedImage displayImage = display.getImage();
+                        javax.imageio.ImageIO.write(displayImage, "png", file);
+                    } catch (Exception exception) {
+                        JOptionPane.showMessageDialog(display,
+                                exception.getMessage(), "Cannot Save Image",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+                else return;
             }
         }
     }
@@ -134,7 +172,7 @@ public class FractalExplorer {
         display.repaint();
     }
 
-    // Класс-обработчик собитий со стороны мыши.
+    // Класс-обработчик событий со стороны мыши.
     private class MouseHandler extends MouseAdapter {
         public void mouseClicked(MouseEvent e) {
             int x = e.getX();

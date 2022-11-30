@@ -36,4 +36,8 @@ public class JImageDisplay extends JComponent {
         // Устанавливаем определенный цвет для пикселя.
         image.setRGB(x, y, rgbColor);
     }
+
+    public BufferedImage getImage() {
+        return image;
+    }
 }
