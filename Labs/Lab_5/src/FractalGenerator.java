@@ -1,3 +1,5 @@
+package Labs.Lab_5.src;
+
 import java.awt.geom.Rectangle2D;
 
 

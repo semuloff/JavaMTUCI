@@ -1,3 +1,5 @@
+package Labs.Lab_5.src;
+
 import javax.swing.JComponent;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;

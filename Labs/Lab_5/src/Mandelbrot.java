@@ -1,3 +1,5 @@
+package Labs.Lab_5.src;
+
 import java.awt.geom.Rectangle2D;
 
 
@@ -17,7 +19,7 @@ public class Mandelbrot extends FractalGenerator {
         /**
          * Функция для фрактала Мандельброта.
          * Zn = (Zn-1)^2 + c
-         * **/
+         **/
         int iteration = 0; // Текущая итерация.
         double zReal = 0.0; // Действительная часть.
         double zComplex = 0.0; // Комплексная часть.
@@ -34,5 +36,10 @@ public class Mandelbrot extends FractalGenerator {
             return -1;
 
         return iteration;
+    }
+
+    @Override
+    public String toString() {
+        return "Mandelbrot.";
     }
 }
