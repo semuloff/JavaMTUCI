@@ -314,7 +314,6 @@ public class Task_4 {
 
     // (9/10)
     public static boolean trouble(long numberOne, long numberTwo) {
-        int count;
         char symbol;
         boolean flag;
 
@@ -324,15 +323,11 @@ public class Task_4 {
         // loop through each character of the number.
         for (int indexNumbOne = 0; indexNumbOne < toStringNumbOne.length(); indexNumbOne++) {
             symbol = toStringNumbOne.charAt(indexNumbOne);
-            count = 0;
             flag = false;
 
             // from the selected number, we are looking for the desired number of repetitions in a row, that is, 3 repetitions.
             for (int indexSymb = indexNumbOne; indexSymb < toStringNumbOne.length(); indexSymb++) {
-                if (toStringNumbOne.charAt(indexSymb) == symbol)
-                    count++;
-
-                if (count == 3) {
+                if (toStringNumbOne.contains((Character.toString(symbol).repeat(3)))) {
                     flag = true;
                     break;
                 }
@@ -340,12 +335,8 @@ public class Task_4 {
 
             // looking for the required number of repetitions in a row of this character in the second line.
             if (flag) {
-                count = 0;
                 for (int indexNumbTwo = 0; indexNumbTwo < toStringNumbTwo.length(); indexNumbTwo++) {
-                    if (toStringNumbTwo.charAt(indexNumbTwo) == symbol)
-                        count++;
-
-                    if (count == 2)
+                    if (toStringNumbTwo.contains((Character.toString(symbol).repeat(2))))
                         return true;
                 }
             }
@@ -357,7 +348,7 @@ public class Task_4 {
     // (10/10)
     public static int countUniqueBooks(String stringSequence, char bookEnd) {
         boolean flag = false;
-        HashSet<String> uniqueBooks = new HashSet<String>();
+        HashSet<String> uniqueBooks = new HashSet<>();
 
         // loop through the string.
         for (int indexBooks = 0; indexBooks < stringSequence.length(); indexBooks++) {
@@ -380,9 +371,6 @@ public class Task_4 {
                             break;
                         }
                     }
-
-                    if (flag)
-                        continue;
                 }
             }
         }
