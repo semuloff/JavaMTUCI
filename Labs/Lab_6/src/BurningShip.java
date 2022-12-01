@@ -38,26 +38,26 @@ public class BurningShip extends FractalGenerator {
     {
         /** Start with iterations at 0. */
         int iteration = 0;
-        /** Initialize zreal and zimaginary. */
-        double zreal = 0;
-        double zimaginary = 0;
+        /** Initialize zreal and zImaginary. */
+        double zReal = 0;
+        double zImaginary = 0;
 
         /**
          * Compute Zn = (abs[Re(zn-1)] + i(abs[img(zn-1)]))^2 + c where values
-         * are complex numbers represented by zreal and zimaginary, Z0=0, and
+         * are complex numbers represented by zReal and zImaginary, Z0=0, and
          * c is the particular point in the fractal that we are displaying
          * (given by x and y).  It is iterated until Z^2 > 4 (absolute value
          * of Z is greater than 2) or maximum number of iterations is reached.
          */
         while (iteration < MAX_ITERATIONS &&
-                zreal * zreal + zimaginary * zimaginary < 4)
+                zReal * zReal + zImaginary * zImaginary < 4)
         {
-            double zrealUpdated = zreal * zreal - zimaginary * zimaginary + x;
-            double zimaginaryUpdated = 2 * Math.abs(zreal)
-                    * Math.abs(zimaginary) + y;
+            double zRealUpdated = zReal * zReal - zImaginary * zImaginary + x;
+            double zImaginaryUpdated = 2 * Math.abs(zReal)
+                    * Math.abs(zImaginary) + y;
 
-            zreal = zrealUpdated;
-            zimaginary = zimaginaryUpdated;
+            zReal = zRealUpdated;
+            zImaginary = zImaginaryUpdated;
 
             iteration += 1;
         }

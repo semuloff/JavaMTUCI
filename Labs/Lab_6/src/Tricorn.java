@@ -36,22 +36,22 @@ public class Tricorn extends FractalGenerator {
         // Start with iterations at 0.
         int iteration = 0;
         // Initialize zreal and zimaginary.
-        double zreal = 0;
-        double zimaginary = 0;
+        double zReal = 0;
+        double zImaginary = 0;
 
         /**
          * Compute Zn = [complex conjugate(Zn-1)]^2 + c where values are
-         * complex numbers represented by zreal and zimaginary, Z0=0, and
+         * complex numbers represented by zReal and zImaginary, Z0=0, and
          * c is the particular point in the fractal that we are displaying
          * (given by x and y).  It is iterated until Z^2 > 4 (absolute value
          * of Z is greater than 2) or maximum number of iterations is reached.
          */
         while (iteration < MAX_ITERATIONS &&
-                zreal * zreal + zimaginary * zimaginary < 4) {
-            double zrealUpdated = zreal * zreal - zimaginary * zimaginary + x;
-            double zimaginaryUpdated = -2 * zreal * zimaginary + y;
-            zreal = zrealUpdated;
-            zimaginary = zimaginaryUpdated;
+                zReal * zReal + zImaginary * zImaginary < 4) {
+            double zRealUpdated = zReal * zReal - zImaginary * zImaginary + x;
+            double zImaginaryUpdated = -2 * zReal * zImaginary + y;
+            zReal = zRealUpdated;
+            zImaginary = zImaginaryUpdated;
             iteration += 1;
         }
 

@@ -11,10 +11,26 @@ import java.awt.image.*;
 
 
 public class FractalExplorer {
+    private JComboBox comboFractal;
+    private JButton resetButton;
+    private JButton saveButton;
+
+    /** Количество оставшихся строк. **/
+    private int rowsRemaining;
+
+    /** Целочисленный размер экрана — это ширина и высота экрана в пикселях. **/
     private int displaySize;
+
     private JImageDisplay display;
+
+    /** Объект FractalGenerator для каждого типа фрактала. **/
     private FractalGenerator fractal;
+
+    /**
+     * Объект Rectangle2D.Double, определяющий диапазон отображаемого комплекса.
+     **/
     private Rectangle2D.Double rectangle;
+
 
     /**
      * Конструктор сохраняет размер окна и инициализирует все поля.
@@ -52,7 +68,7 @@ public class FractalExplorer {
         Tricorn tricornFractal = new Tricorn();
 
         JLabel fractalLabel = new JLabel("Fractal: ");
-        JComboBox comboFractal = new JComboBox();
+        comboFractal = new JComboBox();
 
         comboFractal.addItem(mandelbrotFractal);
         comboFractal.addItem(burningShipFractal);
@@ -62,8 +78,8 @@ public class FractalExplorer {
         chooserPanel.add(fractalLabel);
         chooserPanel.add(comboFractal);
 
-        JButton resetButton = new JButton("Reset");
-        JButton saveButton = new JButton("Save");
+        resetButton = new JButton("Reset");
+        saveButton = new JButton("Save");
 
         JPanel controlPanel = new JPanel();
         controlPanel.add(saveButton);
@@ -126,7 +142,6 @@ public class FractalExplorer {
                 int userSelection = pathChooser.showSaveDialog(display);
 
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
-
                     // Получение файла.
                     java.io.File file = pathChooser.getSelectedFile();
 
@@ -140,36 +155,9 @@ public class FractalExplorer {
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
-
                 else return;
             }
         }
-    }
-
-    /**
-     * Метод для отрисовки фрактала. Окрашивает пиксели в зависимотси от итерации.
-     **/
-    private void drawFractal() {
-        for (int x = 0; x < displaySize; x++) {
-            for (int y = 0; y < displaySize; y++) {
-                double xCoord = FractalGenerator.getCoord(rectangle.x, rectangle.x +
-                        rectangle.width, displaySize, x);
-                double yCoord = FractalGenerator.getCoord(rectangle.y, rectangle.y +
-                        rectangle.height, displaySize, y);
-
-                int iteration = fractal.numIterations(xCoord, yCoord);
-
-                if (iteration == -1)
-                    display.drawPixel(x, y, 256);
-                else {
-                    float hue = 0.7f + (float) iteration / 200f;
-                    int rgbColor = Color.HSBtoRGB(hue, 1f, 1f);
-
-                    display.drawPixel(x, y, rgbColor);
-                }
-            }
-        }
-        display.repaint();
     }
 
     // Класс-обработчик событий со стороны мыши.
@@ -184,11 +172,111 @@ public class FractalExplorer {
             double yCoord = FractalGenerator.getCoord(rectangle.y,
                     rectangle.y + rectangle.height, displaySize, y);
 
-            // Устанавливаем центр в точку, по которой был клик и приближаем.
+            // Устанавливаем центр в точку, по которой был клик, и приближаем.
             fractal.recenterAndZoomRange(rectangle, xCoord, yCoord, 0.5);
 
             drawFractal();
         }
+    }
+
+    private class FractalWorker extends SwingWorker<Object, Object> {
+        int yCoordinate;
+
+        /**
+         * Массив целых чисел для хранения вычисленных значений RGB
+         * для каждого пикселя в строке.
+         **/
+        int[] computedRGBValues;
+
+        private FractalWorker(int row) {
+            yCoordinate = row;
+        }
+
+        /**
+         * Этот метод вызывается в фоновом потоке. Он вычисляет
+         * значение RGB для всех пикселей в 1 строке и сохраняет его в
+         * соответствующий элемент массива целых чисел. Возвращает null.
+         **/
+        protected Object doInBackground() {
+            computedRGBValues = new int[displaySize];
+
+            // Перебираем все пиксели в строке.
+            for (int pixel = 0; pixel < computedRGBValues.length; pixel++) {
+
+                // Находим соответствующие координаты xCoord и yCoord в области отображения фрактала.
+                double xCoord = fractal.getCoord(rectangle.x,
+                        rectangle.x + rectangle.width, displaySize, pixel);
+                double yCoord = fractal.getCoord(rectangle.y,
+                        rectangle.y + rectangle.height, displaySize, yCoordinate);
+
+                // Вычисляет количество итераций для координат в области отображения фрактала.
+                int iteration = fractal.numIterations(xCoord, yCoord);
+
+                // Если количество итераций равно -1, устанавливает текущий int в вычисленном массиве значений RGB int в черный цвет.
+                if (iteration == -1) {
+                    computedRGBValues[pixel] = 0;
+                }
+
+                else {
+                    // В противном случае выбираем значение оттенка на основе количества итераций.
+                    float hue = 0.7f + (float) iteration / 200f;
+                    int rgbColor = Color.HSBtoRGB(hue, 1f, 1f);
+
+                    // Обновляем массив int цветом текущего пикселя.
+                    computedRGBValues[pixel] = rgbColor;
+                }
+            }
+            return null;
+        }
+
+        /**
+         * Вызывается при завершении фоновой задачи. Рисует пиксели
+         * для текущей строки и обновляет отображение этой строки.
+         **/
+        protected void done() {
+            /**
+             * Итерация по массиву данных строки, рисование пикселей,
+             * которые были вычислены в doInBackground().
+             * Перерисовывает строку, которая была изменена.
+             **/
+            for (int pixel = 0; pixel < computedRGBValues.length; pixel++) {
+                display.drawPixel(pixel, yCoordinate, computedRGBValues[pixel]);
+            }
+
+            display.repaint(0, 0, yCoordinate, displaySize, 1);
+
+            // В конце появляется возможность взаимодействие с приложением.
+            rowsRemaining--;
+            if (rowsRemaining == 0) {
+                enableUI(true);
+            }
+        }
+    }
+
+    /**
+     * Метод для отрисовки фрактала. Окрашивает пиксели в зависимотси от итерации.
+     **/
+    private void drawFractal() {
+        /** Вызов enableUI(false), чтобы отключить все элементы
+         * управления пользовательского интерфейса во время рисования.
+         **/
+        enableUI(false);
+
+        rowsRemaining = displaySize;
+
+        // Прокручиваем каждую строку на дисплее и вызываем FractalWorker для ее рисования.
+        for (int row = 0; row < displaySize; row++){
+            FractalWorker drawRow = new FractalWorker(row);
+            drawRow.execute();
+        }
+
+    }
+
+    // Метод обновляет включенное состояние кнопки сохранения, кнопки сброса и поля со списком.
+    private void enableUI(boolean value) {
+        comboFractal.setEnabled(value);
+        saveButton.setEnabled(value);
+        resetButton.setEnabled(value);
     }
 
     public static void main(String[] args) {
