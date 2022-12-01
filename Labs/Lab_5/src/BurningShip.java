@@ -7,9 +7,6 @@ import java.awt.geom.Rectangle2D;
  * Burning Ship fractal.
  */
 public class BurningShip extends FractalGenerator {
-    /**
-     * A constant for the number of maximum iterations.
-     */
     public static final int MAX_ITERATIONS = 2000;
 
     /**
@@ -28,17 +25,11 @@ public class BurningShip extends FractalGenerator {
         range.height = 4;
     }
 
-    /**
-     * This method implements the iterative function for the Tricorn fractal.
-     * It takes two doubles for the real and imaginary parts of the complex
-     * plane and returns the number of iterations for the corresponding
-     * coordinate.
-     */
     public int numIterations(double x, double y)
     {
-        /** Start with iterations at 0. */
+        // Start with iterations at 0.
         int iteration = 0;
-        /** Initialize zreal and zimaginary. */
+        // Initialize zreal and zimaginary.
         double zreal = 0;
         double zimaginary = 0;
 

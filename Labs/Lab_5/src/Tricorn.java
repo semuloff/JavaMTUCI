@@ -2,14 +2,7 @@ package Labs.Lab_5.src;
 
 import java.awt.geom.Rectangle2D;
 
-/**
- * This class is a subclass of FractalGenerator.  It is used to compute the
- * Tricorn fractal.
- */
 public class Tricorn extends FractalGenerator {
-    /**
-     * A constant for the number of maximum iterations.
-     */
     public static final int MAX_ITERATIONS = 2000;
 
     /**
@@ -26,12 +19,6 @@ public class Tricorn extends FractalGenerator {
         range.height = 4;
     }
 
-    /**
-     * This method implements the iterative function for the Tricorn fractal.
-     * It takes two doubles for the real and imaginary parts of the complex
-     * plane and returns the number of iterations for the corresponding
-     * coordinate.
-     */
     public int numIterations(double x, double y) {
         // Start with iterations at 0.
         int iteration = 0;
@@ -55,10 +42,6 @@ public class Tricorn extends FractalGenerator {
             iteration += 1;
         }
 
-        /**
-         * If the number of maximum iterations is reached, return -1 to
-         * indicate the point didn't escape outside of the boundary.
-         */
         if (iteration == MAX_ITERATIONS) {
             return -1;
         }
