@@ -2,6 +2,7 @@ package Labs.Lab_7.src;
 
 import java.io.*;
 import java.net.*;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class Crawler {
@@ -20,6 +21,7 @@ public class Crawler {
 
         rawLinks.add(new URLDepthPair(URL, 0));
 
+        // TODO: Реализовать цикл по коллекциям необработанных ссылок.
         scan(rawLinks.get(0));
     }
 
@@ -29,15 +31,18 @@ public class Crawler {
             socket.setSoTimeout(TIMEOUT);
 
             post = new PrintWriter(socket.getOutputStream(), true);
-            requestForm(post, page);
+            requestForm(page);
 
             get = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             String partPageCode;
-            while ((partPageCode = get.readLine()) != null) {
-//                StringBuilder builder = new StringBuilder();
-                System.out.println(partPageCode);
+            HashSet<String> URL;
 
+            while ((partPageCode = get.readLine()) != null) {
+                URL = URLDepthPair.urlDetermination(partPageCode);
+
+                if (URL != null)
+                    System.out.println(URL);
             }
         } catch (Exception e) {
             System.out.println("Ooop-s: " + e.getMessage());
@@ -50,11 +55,11 @@ public class Crawler {
         }
     }
 
-    private void requestForm(PrintWriter post, URLDepthPair page) throws MalformedURLException {
-        this.post.println("GET " + page.getPath() + " HTTP/1.1");
-        this.post.println("Host: " + page.getHost());
-        this.post.println("Connection: close");
-        this.post.println();
+    private void requestForm(URLDepthPair page) throws MalformedURLException {
+        post.println("GET " + page.getPath() + " HTTP/1.1");
+        post.println("Host: " + page.getHost());
+        post.println("Connection: close");
+        post.println();
     }
 
     public static void main(String[] args) throws IOException {
