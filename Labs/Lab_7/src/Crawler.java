@@ -44,13 +44,12 @@ public class Crawler {
                 get = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 String partPageCode;
-                HashSet<String> URL;
+                HashSet<String> URLs;
 
                 while ((partPageCode = get.readLine()) != null) {
-                    URL = URLDepthPair.urlDetermination(partPageCode);
-//                    System.out.println(partPageCode);
-                    if (URL != null)
-                        addRawLinks(URL, page.getDepth() + 1);
+                    URLs = URLDepthPair.urlDetermination(partPageCode);
+                    if (URLs != null)
+                        addRawLinks(URLs, page.getDepth() + 1);
                 }
             } catch (Exception e) {
                 System.out.println("Ooop-s: " + e.getMessage());
@@ -79,6 +78,7 @@ public class Crawler {
 
     // Output processed links with respect to depth.
     private static void getSites() {
+        System.out.println("The result of the work:\n" + "-".repeat(50));
         for (URLDepthPair pair : processedLinks) {
             System.out.println(pair);
         }
@@ -86,7 +86,7 @@ public class Crawler {
 
     public static void main(String[] args) throws IOException {
         /**
-         * "http://" - format.
+         *  "http://" - format.
          * for example:
          *  http://www.all-met.narod.ru/
          *  http://www.rgrafika.ru/
@@ -97,7 +97,7 @@ public class Crawler {
         String URL = null;
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter the URL: ");
+        System.out.print("Enter the URL: ");
         URL = reader.readLine();
 
         try {
@@ -108,7 +108,7 @@ public class Crawler {
 
         int depth = 0;
 
-        System.out.println("Enter the depth: ");
+        System.out.print("Enter the depth: ");
         try {
             depth = Integer.parseInt(reader.readLine());
             if (depth < 0)
@@ -117,7 +117,7 @@ public class Crawler {
             throw new NumberFormatException("usage: java Crawler <URL> <depth>");
         }
 
-        System.out.println("\nWorks...");
+        System.out.println("\nWorks...\n");
 
         Crawler Scanner = new Crawler(depth);
     }
