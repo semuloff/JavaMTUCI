@@ -2,73 +2,62 @@ package Labs.Lab_7.src;
 
 import java.net.*;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class URLDepthPair<E, N> {
     private E URL;
     private N depth;
+    private java.net.URL urlFormat;
 
-    public static final String URL_PREFIX = "<a href=\"";
-    public static final String PROTOCOL_PREFIX = "http://";
+    static final String REGEX_PATTERN = "<a href=\"(http://www\\.[a-zA-Z0-9]+\\.[a-z]+" +
+            "/[-a-zA-Z0-9+&@#/%=~._|]*|http://[a-zA-Z0-9]+\\.[a-z]+" +
+            "/[-a-zA-Z0-9+&@#/%=~._|]*|https://www\\.[a-zA-Z0-9]+\\.[a-z]+" +
+            "/[-a-zA-Z0-9+&@#/%=~._|]*|https://[a-zA-Z0-9]+\\.[a-z]+/[-a-zA-Z0-9+&@#/%=~._|]*)\"";
+    static Pattern pattern = Pattern.compile(REGEX_PATTERN);
 
-    // assert: URL format: http://anyLink.domen/..., depth >= 0.
-    URLDepthPair(E URL, N depth) {
+    URLDepthPair(E URL, N depth) throws MalformedURLException {
+        // assert: URL format: http://anyLink.domen/..., depth >= 0.
         this.URL = URL;
         this.depth = depth;
+        urlFormat = new java.net.URL((String) URL);
     }
 
-    N getDepth() {
-        return depth;
+    int getDepth() {
+        return (int) depth;
     }
 
-    E getURL() {
-        return URL;
+    String getURL() {
+        return (String) URL;
     }
 
     String getHost() throws MalformedURLException {
-        java.net.URL url = new URL((String) URL);
-
-        return url.getHost();
+        return urlFormat.getHost();
     }
 
     String getPath() throws MalformedURLException {
-        java.net.URL url = new URL((String) URL);
-
-        return url.getPath();
-    }
-
-    // TODO: Проверка URL-ссылки на валидность.
-    static void validator(String URL) {
+         return urlFormat.getPath();
     }
 
     // Determination of links of the required format from a piece of HTML code.
-    static HashSet<String> urlDetermination(String htmlPiece) {
-        // assert: format = <a href="http://anyLink.domen/..."
+    static HashSet<String> urlDetermination(String htmlCode) {
         HashSet<String> urlSet = new HashSet<>();
-        StringBuilder builderString = new StringBuilder();
+        Matcher matcher = pattern.matcher(htmlCode);
 
-        if (htmlPiece.contains(URL_PREFIX + PROTOCOL_PREFIX)) {
-            // Index of the beginning of the URL link.
-            int indexURL = htmlPiece.indexOf(PROTOCOL_PREFIX);
-
-            // Look for raw references in the string until they run out.
-            while (indexURL != -1) {
-                for (int indexLine = indexURL; true; indexLine++) {
-                    if (htmlPiece.charAt(indexLine) == '"') {
-                        htmlPiece = htmlPiece.replace(URL_PREFIX + builderString.toString(), "");
-                        urlSet.add(builderString.toString());
-                        builderString.setLength(0);
-
-                        indexURL = htmlPiece.indexOf(URL_PREFIX);
-                        indexURL += (indexURL == -1) ? 0 : URL_PREFIX.length();
-                        break;
-                    }
-
-                    builderString.append(htmlPiece.charAt(indexLine));
-                }
-            }
+        while (matcher.find()) {
+            /**
+             * assert: group(index):
+             * 0 - with "<a href=...".
+             * 1 - only url.
+             **/
+            urlSet.add(matcher.group(1));
         }
 
         return urlSet.size() > 0 ? urlSet : null;
+    }
+
+    @Override
+    public String toString() {
+        return "URL: " + getURL() + ", Depth: " + getDepth();
     }
 }
