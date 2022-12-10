@@ -9,6 +9,12 @@ public class Crawler {
     static final int PORT = 80;
     static final int TIMEOUT = 5000;
 
+    static int depth;
+    static int countThreads;
+    static Thread[] threads;
+    static URLPool pool;
+    static String URL;
+
     static HashSet<String> scan(URLDepthPair page) throws IOException {
         HashSet<String> allURL = new HashSet<>();
 
@@ -22,11 +28,11 @@ public class Crawler {
 
         // URL parsing.
         String partPageCode;
-        HashSet<String> URLsInLine;
+        LinkedList<String> urlIsInLine;
         while ((partPageCode = get.readLine()) != null) {
-            URLsInLine = URLDepthPair.urlDetermination(partPageCode);
-            if (URLsInLine != null) {
-                for (String URL : URLsInLine) {
+            urlIsInLine = URLDepthPair.urlDetermination(partPageCode);
+            if (urlIsInLine != null) {
+                for (String URL : urlIsInLine) {
                     allURL.add(URL);
                 }
             }
@@ -40,11 +46,17 @@ public class Crawler {
     }
 
     // HTTP request form.
-    static void requestForm(PrintWriter post, URLDepthPair page) throws MalformedURLException {
+    private static void requestForm(PrintWriter post, URLDepthPair page) throws MalformedURLException {
         post.println("GET " + page.getPath() + " HTTP/1.1");
         post.println("Host: " + page.getHost());
         post.println("Connection: close");
         post.println();
+    }
+
+    private static void interruptThreads() {
+        for (Thread element : threads) {
+            element.interrupt();
+        }
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -54,14 +66,7 @@ public class Crawler {
          *  http://www.all-met.narod.ru/
          *  http://www.rgrafika.ru/
          **/
-        String URL = null;
-        int depth = 0;
-        int countThreads = 0;
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.print("Enter the URL: ");
-        URL = reader.readLine();
 
         System.out.print("Enter the depth: ");
         try {
@@ -72,7 +77,8 @@ public class Crawler {
             throw new NumberFormatException("[Incorrect depth] - usage: java Crawler <URL> <depth> <threads>");
         }
 
-        URLPool pool;
+        System.out.print("Enter the URL: ");
+        URL = reader.readLine();
 
         try {
             pool = new URLPool(new URLDepthPair<>(URL, 0), depth);
@@ -89,30 +95,23 @@ public class Crawler {
             throw new NumberFormatException("[Incorrect threads] - usage: java Crawler <URL> <depth> <threads>");
         }
 
+        threads = new Thread[countThreads];
 
-        int defaultActiveThread = Thread.activeCount();
-        LinkedList<Thread> threads = new LinkedList<>();
+        for (int indexThread = 0; indexThread < countThreads; indexThread++) {
+            CrawlerTask crawler = new CrawlerTask(pool);
+            Thread thread = new Thread(crawler);
+            thread.start();
+            threads[indexThread] = thread;
+            Thread.sleep(100);
+        }
 
         while (pool.getWaitingThreads() != countThreads) {
-            if (Thread.activeCount() - defaultActiveThread < countThreads){
-                CrawlerTask crawler = new CrawlerTask(pool);
-                Thread thread = new Thread(crawler);
-                thread.start();
-
-                threads.add(thread);
-            } else {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException exception) {
-                    System.out.println("Thread: " + exception.getMessage());
-                }
-            }
+            System.out.println(Thread.activeCount());
+            System.out.println(pool.getSize());
+            Thread.sleep(500);
         }
 
-        for (Thread element : threads) {
-            element.interrupt();
-        }
-
+        interruptThreads();
         pool.getSites();
     }
 }

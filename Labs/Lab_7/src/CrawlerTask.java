@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class CrawlerTask implements Runnable {
-    static URLPool mainPull;
+    private static URLPool mainPull;
 
     private URLDepthPair currentPair;
 

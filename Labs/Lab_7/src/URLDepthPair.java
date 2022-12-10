@@ -2,6 +2,7 @@ package Labs.Lab_7.src;
 
 import java.net.*;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,8 +41,9 @@ public class URLDepthPair<E, N> {
     }
 
     // Determination of links of the required format from a piece of HTML code.
-    static HashSet<String> urlDetermination(String htmlCode) {
-        HashSet<String> urlSet = new HashSet<>();
+    static LinkedList<String> urlDetermination(String htmlCode) {
+        LinkedList<String> urlSet = new LinkedList<>();
+
         Matcher matcher = pattern.matcher(htmlCode);
 
         while (matcher.find()) {
