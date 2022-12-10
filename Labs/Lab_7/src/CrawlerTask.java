@@ -19,18 +19,23 @@ public class CrawlerTask implements Runnable {
             currentPair = mainPool.get();
 
             try {
-                HashSet<String> URLs = Crawler.scan(currentPair);
+                HashSet<String> URLs = null;
+
+                if (currentPair != null) {
+                    URLs = Crawler.scan(currentPair);
+                }
+
                 if (URLs != null) {
                     for (String URL : URLs) {
                         try {
                             mainPool.put(new URLDepthPair(URL, currentPair.getDepth() + 1));
                         } catch (MalformedURLException exception) {
-                            System.out.println("Ошибка при создании пар: " + exception.getMessage());
+                            System.out.println("[Error while creating pairs]: " + exception.getMessage());
                         }
                     }
                 }
             } catch (IOException exception) {
-                System.out.println("Ошибка при сканировании: " + exception.getMessage());
+                System.out.println("[Error while scanning]: " + exception.getMessage());
             }
         }
     }

@@ -1,7 +1,6 @@
 package Labs.Lab_7.src;
 
 import java.net.*;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +14,7 @@ public class URLDepthPair<E, N> {
             "/[-a-zA-Z0-9+&@#/%=~._|]*|http://[a-zA-Z0-9]+\\.[a-z]+" +
             "/[-a-zA-Z0-9+&@#/%=~._|]*|https://www\\.[a-zA-Z0-9]+\\.[a-z]+" +
             "/[-a-zA-Z0-9+&@#/%=~._|]*|https://[a-zA-Z0-9]+\\.[a-z]+/[-a-zA-Z0-9+&@#/%=~._|]*)\"";
+
     static Pattern pattern = Pattern.compile(REGEX_PATTERN);
 
     URLDepthPair(E URL, N currentDepth) throws MalformedURLException {
@@ -32,17 +32,17 @@ public class URLDepthPair<E, N> {
         return (String) URL;
     }
 
-    String getHost() throws MalformedURLException {
+    String getHost() {
         return urlFormat.getHost();
     }
 
-    String getPath() throws MalformedURLException {
+    String getPath() {
          return urlFormat.getPath();
     }
 
     // Determination of links of the required format from a piece of HTML code.
     static LinkedList<String> urlDetermination(String htmlCode) {
-        LinkedList<String> urlSet = new LinkedList<>();
+        LinkedList<String> URLs = new LinkedList<>();
 
         Matcher matcher = pattern.matcher(htmlCode);
 
@@ -52,14 +52,14 @@ public class URLDepthPair<E, N> {
              * 0 - with "<a href=...".
              * 1 - only url.
              **/
-            urlSet.add(matcher.group(1));
+            URLs.add(matcher.group(1));
         }
 
-        return urlSet.size() > 0 ? urlSet : null;
+        return URLs.size() > 0 ? URLs : null;
     }
 
     @Override
     public String toString() {
-        return "URL: " + getURL() + ", Depth: " + getDepth();
+        return "[URL]: " + getURL() + ", [Depth]: " + getDepth();
     }
 }

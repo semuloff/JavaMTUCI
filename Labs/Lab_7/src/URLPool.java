@@ -22,16 +22,15 @@ public class URLPool {
             try {
                 this.wait();
             } catch (InterruptedException exception) {
-                System.out.println("[Thread wait]: " + exception.getMessage());
+                System.out.println("[Thread completed.]");
             }
         }
 
         URLDepthPair resultingPair = null;
-        try {
+
+        if (rawLinks.size() != 0) {
             resultingPair = rawLinks.removeFirst();
             processedLinks.add(resultingPair);
-        } catch (NoSuchElementException exception) {
-            System.out.println("[Removing from an empty list]: " + exception.getMessage());
         }
 
         return resultingPair;
@@ -53,7 +52,7 @@ public class URLPool {
 
     // Output processed URLs with respect to depth.
     synchronized void getSites() {
-        System.out.println("The result of the work:\n" + "-".repeat(50));
+        System.out.println("\nThe result of the work:\n" + "-".repeat(50));
         for (URLDepthPair pair : processedLinks) {
             System.out.println(pair);
         }

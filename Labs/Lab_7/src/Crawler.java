@@ -55,32 +55,31 @@ public class Crawler {
 
     public static void main(String[] args) throws IOException {
         /**
-         *  "http://" - format.
+         * "http://" - format.
          * for example:
          *  http://www.all-met.narod.ru/
          *  http://www.rgrafika.ru/
          **/
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.print("Enter the depth: ");
+        System.out.print("Enter the depth >> ");
         try {
             depth = Integer.parseInt(reader.readLine());
-            if (depth < 0)
-                throw new NumberFormatException("[Incorrect depth] - entered depth < 0");
+            if (depth < 1)
+                throw new NumberFormatException("[Incorrect depth] - entered depth < 1");
         } catch (NumberFormatException exception) {
             throw new NumberFormatException("[Incorrect depth] - usage: java Crawler <URL> <depth> <threads>");
         }
 
-        System.out.print("Enter the URL: ");
-        URL = reader.readLine();
-
+        System.out.print("Enter the URL >> ");
         try {
+            URL = reader.readLine();
             pool = new URLPool(new URLDepthPair<>(URL, 0), depth);
         } catch (MalformedURLException exception) {
             throw new MalformedURLException("[Incorrect URL] - usage: java Crawler <URL> <depth> <threads>");
         }
 
-        System.out.print("Enter the number of threads: ");
+        System.out.print("Enter the number of threads >> ");
         try {
             countThreads = Integer.parseInt(reader.readLine());
             if (countThreads < 1)
@@ -88,6 +87,8 @@ public class Crawler {
         } catch (NumberFormatException exception) {
             throw new NumberFormatException("[Incorrect threads] - usage: java Crawler <URL> <depth> <threads>");
         }
+
+        System.out.println("\nWorks...\n");
 
         threads = new Thread[countThreads];
 
@@ -103,15 +104,15 @@ public class Crawler {
         threadController.start();
 
         while (ThreadController.countWaitingThreads != countThreads) {
-            System.out.println(pool.getSize());
             try {
-                Thread.sleep(2000);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
         }
 
         pool.getSites();
+
+        System.exit(0);
     }
 }
