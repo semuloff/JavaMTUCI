@@ -16,8 +16,6 @@ public class Crawler {
     static String URL;
 
     static HashSet<String> scan(URLDepthPair page) throws IOException {
-        HashSet<String> allURL = new HashSet<>();
-
         Socket socket = new Socket(page.getHost(), PORT);
         socket.setSoTimeout(TIMEOUT);
 
@@ -28,7 +26,9 @@ public class Crawler {
 
         // URL parsing.
         String partPageCode;
+        HashSet<String> allURL = new HashSet<>();
         LinkedList<String> urlIsInLine;
+
         while ((partPageCode = get.readLine()) != null) {
             urlIsInLine = URLDepthPair.urlDetermination(partPageCode);
             if (urlIsInLine != null) {
@@ -42,7 +42,7 @@ public class Crawler {
         post.close();
         get.close();
 
-        return allURL;
+        return (allURL.size() > 0) ? allURL : null;
     }
 
     // HTTP request form.
@@ -53,13 +53,7 @@ public class Crawler {
         post.println();
     }
 
-    private static void interruptThreads() {
-        for (Thread element : threads) {
-            element.interrupt();
-        }
-    }
-
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         /**
          *  "http://" - format.
          * for example:
@@ -102,16 +96,22 @@ public class Crawler {
             Thread thread = new Thread(crawler);
             thread.start();
             threads[indexThread] = thread;
-            Thread.sleep(100);
         }
 
-        while (pool.getWaitingThreads() != countThreads) {
-            System.out.println(Thread.activeCount());
+        ThreadController controller = new ThreadController(threads);
+        Thread threadController = new Thread(controller);
+        threadController.start();
+
+        while (ThreadController.countWaitingThreads != countThreads) {
             System.out.println(pool.getSize());
-            Thread.sleep(500);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
         }
 
-        interruptThreads();
         pool.getSites();
     }
 }
