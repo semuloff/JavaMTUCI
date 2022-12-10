@@ -16,10 +16,10 @@ public class URLDepthPair<E, N> {
             "/[-a-zA-Z0-9+&@#/%=~._|]*|https://[a-zA-Z0-9]+\\.[a-z]+/[-a-zA-Z0-9+&@#/%=~._|]*)\"";
     static Pattern pattern = Pattern.compile(REGEX_PATTERN);
 
-    URLDepthPair(E URL, N depth) throws MalformedURLException {
+    URLDepthPair(E URL, N currentDepth) throws MalformedURLException {
         // assert: URL format: http://anyLink.domen/..., depth >= 0.
         this.URL = URL;
-        this.depth = depth;
+        this.depth = currentDepth;
         urlFormat = new java.net.URL((String) URL);
     }
 

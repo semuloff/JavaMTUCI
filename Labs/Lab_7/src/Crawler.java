@@ -6,119 +6,113 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 public class Crawler {
-    static LinkedList<URLDepthPair> rawLinks;
-    static LinkedList<URLDepthPair> processedLinks;
     static final int PORT = 80;
     static final int TIMEOUT = 5000;
 
-    private int maxDepth;
-    private Socket socket;
-    private BufferedReader get;
-    private PrintWriter post;
+    static HashSet<String> scan(URLDepthPair page) throws IOException {
+        HashSet<String> allURL = new HashSet<>();
 
-    public Crawler(int maxDepth) throws IOException {
-        this.maxDepth = maxDepth;
+        Socket socket = new Socket(page.getHost(), PORT);
+        socket.setSoTimeout(TIMEOUT);
 
-        // Iterate until there are no raw references left.
-        while (rawLinks.size() != 0) {
-            final URLDepthPair pair = rawLinks.get(0);
+        PrintWriter post = new PrintWriter(socket.getOutputStream(), true);
+        requestForm(post, page);
 
-            scan(pair);
+        BufferedReader get = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            rawLinks.remove(0);
-            processedLinks.add(pair);
-        }
-
-        getSites();
-    }
-
-    private void scan(URLDepthPair page) throws IOException {
-        if (page.getDepth() < maxDepth) {
-            try {
-                socket = new Socket(page.getHost(), PORT);
-                socket.setSoTimeout(TIMEOUT);
-
-                post = new PrintWriter(socket.getOutputStream(), true);
-                requestForm(page);
-
-                get = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                String partPageCode;
-                HashSet<String> URLs;
-
-                while ((partPageCode = get.readLine()) != null) {
-                    URLs = URLDepthPair.urlDetermination(partPageCode);
-                    if (URLs != null)
-                        addRawLinks(URLs, page.getDepth() + 1);
+        // URL parsing.
+        String partPageCode;
+        HashSet<String> URLsInLine;
+        while ((partPageCode = get.readLine()) != null) {
+            URLsInLine = URLDepthPair.urlDetermination(partPageCode);
+            if (URLsInLine != null) {
+                for (String URL : URLsInLine) {
+                    allURL.add(URL);
                 }
-            } catch (Exception e) {
-                System.out.println("Ooop-s: " + e.getMessage());
-            } finally {
-                socket.close();
-                post.close();
-                get.close();
             }
         }
-    }
 
-    // Adds ready unvisited links to array for unvisited links.
-    private void addRawLinks(HashSet<String> array, int depth) throws MalformedURLException {
-        for (String URL : array) {
-            rawLinks.add(new URLDepthPair(URL, depth));
-        }
+        socket.close();
+        post.close();
+        get.close();
+
+        return allURL;
     }
 
     // HTTP request form.
-    private void requestForm(URLDepthPair page) throws MalformedURLException {
+    static void requestForm(PrintWriter post, URLDepthPair page) throws MalformedURLException {
         post.println("GET " + page.getPath() + " HTTP/1.1");
         post.println("Host: " + page.getHost());
         post.println("Connection: close");
         post.println();
     }
 
-    // Output processed links with respect to depth.
-    private static void getSites() {
-        System.out.println("The result of the work:\n" + "-".repeat(50));
-        for (URLDepthPair pair : processedLinks) {
-            System.out.println(pair);
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         /**
          *  "http://" - format.
          * for example:
          *  http://www.all-met.narod.ru/
          *  http://www.rgrafika.ru/
          **/
-        rawLinks = new LinkedList<>();
-        processedLinks = new LinkedList<>();
-
         String URL = null;
+        int depth = 0;
+        int countThreads = 0;
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
         System.out.print("Enter the URL: ");
         URL = reader.readLine();
-
-        try {
-            rawLinks.add(new URLDepthPair(URL, 0));
-        } catch (MalformedURLException exception) {
-            throw new MalformedURLException("usage: java Crawler <URL> <depth>");
-        }
-
-        int depth = 0;
 
         System.out.print("Enter the depth: ");
         try {
             depth = Integer.parseInt(reader.readLine());
             if (depth < 0)
-                throw new MalformedURLException("Incorrect depth: depth < 0");
+                throw new NumberFormatException("[Incorrect depth] - entered depth < 0");
         } catch (NumberFormatException exception) {
-            throw new NumberFormatException("usage: java Crawler <URL> <depth>");
+            throw new NumberFormatException("[Incorrect depth] - usage: java Crawler <URL> <depth> <threads>");
         }
 
-        System.out.println("\nWorks...\n");
+        URLPool pool;
 
-        Crawler Scanner = new Crawler(depth);
+        try {
+            pool = new URLPool(new URLDepthPair<>(URL, 0), depth);
+        } catch (MalformedURLException exception) {
+            throw new MalformedURLException("[Incorrect URL] - usage: java Crawler <URL> <depth> <threads>");
+        }
+
+        System.out.print("Enter the number of threads: ");
+        try {
+            countThreads = Integer.parseInt(reader.readLine());
+            if (countThreads < 1)
+                throw new NumberFormatException("[Incorrect count of thread] - entered thread < 1");
+        } catch (NumberFormatException exception) {
+            throw new NumberFormatException("[Incorrect threads] - usage: java Crawler <URL> <depth> <threads>");
+        }
+
+
+        int defaultActiveThread = Thread.activeCount();
+        LinkedList<Thread> threads = new LinkedList<>();
+
+        while (pool.getWaitingThreads() != countThreads) {
+            if (Thread.activeCount() - defaultActiveThread < countThreads){
+                CrawlerTask crawler = new CrawlerTask(pool);
+                Thread thread = new Thread(crawler);
+                thread.start();
+
+                threads.add(thread);
+            } else {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException exception) {
+                    System.out.println("Thread: " + exception.getMessage());
+                }
+            }
+        }
+
+        for (Thread element : threads) {
+            element.interrupt();
+        }
+
+        pool.getSites();
     }
 }
