@@ -1,4 +1,4 @@
-package Labs.Lab_7.src;
+package Labs.Labs_7_8.src;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

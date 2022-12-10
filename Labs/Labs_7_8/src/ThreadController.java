@@ -1,4 +1,4 @@
-package Labs.Lab_7.src;
+package Labs.Labs_7_8.src;
 
 public class ThreadController implements Runnable {
     private Thread[] threads;

@@ -1,8 +1,7 @@
-package Labs.Lab_7.src;
+package Labs.Labs_7_8.src;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class URLPool {
     LinkedList<URLDepthPair> rawLinks;
