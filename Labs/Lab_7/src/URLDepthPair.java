@@ -1,4 +1,4 @@
-package Labs.Labs_7_8.src;
+package Labs.Lab_7.src;
 
 import java.net.*;
 import java.util.LinkedList;
