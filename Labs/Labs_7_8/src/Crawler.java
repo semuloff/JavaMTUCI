@@ -112,7 +112,5 @@ public class Crawler {
         }
 
         pool.getSites();
-
-        System.exit(0);
     }
 }

@@ -16,12 +16,12 @@ public class URLPool {
     }
 
     // Getting a pair from the pool.
-    synchronized URLDepthPair get() {
+    synchronized URLDepthPair get() throws InterruptedException {
         if (rawLinks.size() == 0) {
             try {
                 this.wait();
             } catch (InterruptedException exception) {
-                System.out.println("[Thread completed.]");
+                throw new InterruptedException("[Thread completed.]");
             }
         }
 

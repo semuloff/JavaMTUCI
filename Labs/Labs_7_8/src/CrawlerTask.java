@@ -16,7 +16,11 @@ public class CrawlerTask implements Runnable {
     @Override
     public void run() {
         while (true) {
-            currentPair = mainPool.get();
+            try {
+                currentPair = mainPool.get();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
             try {
                 HashSet<String> URLs = null;
