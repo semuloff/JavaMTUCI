@@ -19,6 +19,20 @@ public class Task_5 {
 
         // (3/10)
         prettyPrint("(3/10)", "canComplete");
+        System.out.println(canComplete("butl", "beautiful")); // canComplete("butl", "beautiful") -> true
+        System.out.println(canComplete("butlz", "beautiful")); // canComplete("butlz", "beautiful") -> false
+        System.out.println(canComplete("tulb", "beautiful")); // canComplete("tulb", "beautiful") -> false
+        System.out.println(canComplete("bbutl", "beautiful")); // canComplete("bbutl", "beautiful") -> false
+
+        // (4/10)
+        prettyPrint("(4/10)", "sumDigProd");
+        System.out.println(sumDigProd(16, 28)); // sumDigProd(16, 28) -> 6
+        System.out.println(sumDigProd(0)); // sumDigProd(0) -> 0
+        System.out.println(sumDigProd(1, 2, 3, 4, 5, 6)); // sumDigProd(1, 2, 3, 4, 5, 6) -> 2
+
+        // (5/10)
+        prettyPrint("(4/10)", "sameVowelGroup");
+        System.out.println();
     }
     
     // PrettyPrint
@@ -111,5 +125,56 @@ public class Task_5 {
     }
 
     // (3/10)
+    public static boolean canComplete(String line, String completedLine) {
+        char[] symbols = line.toCharArray();
+        int interim = 0;
+
+        for (int index = 0, arrayLenght = symbols.length; index < arrayLenght; index++) {
+            if (completedLine.indexOf(String.valueOf(symbols[index]), interim) != -1) {
+                interim = completedLine.indexOf(String.valueOf(symbols[index]), interim) + 1;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // (4/10)
+    public static int sumDigProd(int ... numbers) {
+        int result = 0;
+
+        for (int indexArray = 0, lenghtArray = numbers.length; indexArray < lenghtArray; indexArray++) {
+            result += numbers[indexArray];
+        }
+
+        while (result > 9) {
+            int numbProduct = 1;
+
+            while (result != 0) {
+                numbProduct *= result % 10;
+                result /= 10;
+            }
+
+            result = numbProduct;
+        }
+
+//        while (result / 10 != 0) {
+//            String numbToString = String.valueOf(result);
+//            int numbProduct = 1;
+//
+//            for (int indexSymb = 0, lenghtLine = numbToString.length(); indexSymb < lenghtLine; indexSymb++) {
+//                numbProduct *= Integer.parseInt(Character.toString(numbToString.charAt(indexSymb)));
+//            }
+//
+//            result = numbProduct;
+//        }
+
+        return result;
+    }
+
+    // (5/10)
+    public static void sameVowelGroup() {
+    }
 }
 
