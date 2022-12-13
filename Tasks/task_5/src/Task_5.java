@@ -13,6 +13,12 @@ public class Task_5 {
 
         // (2/10)
         prettyPrint("(2/10)", "canMove");
+        System.out.println(canMove("Rook", "A8", "H8")); // ("Rook", "A8", "H8") -> true
+        System.out.println(canMove("Bishop", "A7", "G1")); // ("Bishop", "A7", "G1") -> true
+        System.out.println(canMove("Queen", "C4", "D6")); // ("Queen", "C4", "D6") -> false
+
+        // (3/10)
+        prettyPrint("(3/10)", "canComplete");
     }
     
     // PrettyPrint
@@ -53,5 +59,57 @@ public class Task_5 {
     }
 
     // (2/10)
+    public static boolean canMove(String figure, String start, String end) {
+        // assert: XY.
+        char xStartCoord = start.charAt(0);
+        int yStartCoord = Integer.parseInt(Character.toString(start.charAt(1)));
+
+        char xEndCoord = end.charAt(0);
+        int yEndCoord = Integer.parseInt(Character.toString(end.charAt(1)));
+
+        // assert: xCoord (A-H), yCoord (1-8).
+        switch (figure) {
+            case "King":
+                return (Math.abs(yStartCoord - yEndCoord) <= 1 && Math.abs(((int) xStartCoord - (int) xEndCoord)) <= 1) ?
+                        true : false;
+            case "Queen":
+                if (yStartCoord == yEndCoord) {
+                    return (Math.abs(((int) xStartCoord - (int) xEndCoord)) >= 0) ? true : false;
+                } else if ((Math.abs(yStartCoord - yEndCoord) == Math.abs(((int) xStartCoord - (int) xEndCoord)))) {
+                    return true;
+                } else {
+                    return ((int) xStartCoord == (int) xEndCoord) ? true : false;
+                }
+            case "Rook":
+                if (yStartCoord == yEndCoord) {
+                    return true;
+//                    return (Math.abs(((int) xStartCoord - (int) xEndCoord)) >= 0) ? true : false;
+                } else {
+                    return ((int) xStartCoord == (int) xEndCoord) ? true : false;
+                }
+            case "Knight":
+                if ((Math.abs(((int) xStartCoord - (int) xEndCoord)) == 2 && Math.abs(yStartCoord - yEndCoord) == 1)
+                        || Math.abs(yStartCoord - yEndCoord) == 2 && Math.abs(((int) xStartCoord - (int) xEndCoord)) == 1) {
+                    return true;
+                } else {
+                    return (((int) xStartCoord == (int) xEndCoord) && yStartCoord == yEndCoord) ? true : false;
+                }
+            case "Bishop":
+                return (Math.abs(yStartCoord - yEndCoord) == Math.abs(((int) xStartCoord - (int) xEndCoord))) ? true : false;
+            case "Pawn":
+                if ((int) xStartCoord == (int) xEndCoord) {
+                    if (yStartCoord == 2) {
+                        if (yEndCoord - yStartCoord <= 2 && yEndCoord - yStartCoord >= 0) {
+                            return true;
+                        }
+                    } else {
+                        return (yEndCoord - yStartCoord <= 1 && yEndCoord - yStartCoord >= 0) ? true : false;
+                    }
+                }
+        }
+        return false;
+    }
+
+    // (3/10)
 }
 
