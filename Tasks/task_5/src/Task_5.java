@@ -1,5 +1,9 @@
 package Tasks.task_5.src;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -42,15 +46,31 @@ public class Task_5 {
 //        System.out.println(validateCard(1234567890123456L)); // validateCard(1234567890123456) -> false
 //        System.out.println(validateCard(1234567890123452L)); // validateCard(1234567890123452) -> true
 
-        // (7/10)
-        prettyPrint("(7/10)", "numToEng & numToRus");
-        System.out.println(numToEng(0)); // numToEng(0) -> "zero"
-        System.out.println(numToEng(18)); // numToEng(18) -> "eighteen"
-        System.out.println(numToEng(126)); // numToEng(126) -> "one hundred twenty six"
-        System.out.println(numToEng(909)); // numToEng(909) -> "nine hundred nine"
+//        // (7/10)
+//        prettyPrint("(7/10)", "numToEng & numToRus");
+//        System.out.println(numToEng(0)); // numToEng(0) -> "zero"
+//        System.out.println(numToEng(18)); // numToEng(18) -> "eighteen"
+//        System.out.println(numToEng(126)); // numToEng(126) -> "one hundred twenty six"
+//        System.out.println(numToEng(909)); // numToEng(909) -> "nine hundred nine"
+//
+//        // (8/10)
+//        prettyPrint("(8/10)", "getSha256Hash");
+//        try {
+//            System.out.println(getSha256Hash("password123"));
+//            System.out.println(getSha256Hash("Fluffy@home"));
+//            System.out.println(getSha256Hash("Hey dude!"));
+//        } catch (NoSuchAlgorithmException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        // (9/10)
+//        prettyPrint("(9/10)", "correctTitle");
+//        System.out.println(correctTitle("jOn SnoW, kINg IN th-E no-Rth.")); // -> "Jon Snow, King in the North."
+//        System.out.println(correctTitle("sansa stark, lady of winterfell.")); // -> "Sansa Stark, Lady of Winterfell."
+//        System.out.println(correctTitle("TYRION LANNISTER, HAND OF THE QUEEN.")); // -> "Tyrion Lannister, Hand of the Queen."
 
-        // (8/10)
-        prettyPrint("(8/10)", "getSha256Hash");
+        // (10/10)
+        prettyPrint("(10/10)", "hexLattice");
     }
     
     // PrettyPrint
@@ -570,7 +590,57 @@ public class Task_5 {
     }
 
     // (8/10)
-    public static void getSha256Hash(String str) {
+    public static String getSha256Hash(String str) throws NoSuchAlgorithmException {
+        MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = algorithm.digest(str.getBytes(StandardCharsets.UTF_8));
+
+        BigInteger number = new BigInteger(1, bytes);
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        return hexString.toString();
+    }
+
+    // (9/10)
+    public static String correctTitle(String title) {
+        String[] words  = title.toLowerCase().split(" ");
+        StringBuilder builder = new StringBuilder();
+
+        for (int index = 0, lenght = words.length; index < lenght; index++) {
+            String word = words[index];
+            String firstSymbol = String.valueOf(word.charAt(0));
+
+            if (word.contains("-")) {
+                String firstPart = word.substring(0, word.indexOf("-"));
+                String secondPart = word.substring(word.indexOf("-") + 1, word.length());
+                String symbFirstPart = String.valueOf(firstPart.charAt(0));
+                String symbSecondPart = String.valueOf(secondPart.charAt(0));
+
+                builder.append(firstPart.replaceFirst(symbFirstPart, symbFirstPart.toUpperCase()) + "-"
+                        + secondPart.replaceFirst(symbSecondPart, symbSecondPart.toUpperCase()));
+
+                if (index != lenght - 1) {
+                    builder.append(" ");
+                }
+
+                continue;
+            }
+
+            if ("and".equals(word) || "the".equals(word) || "of".equals(word) || "in".equals(word)) {
+                builder.append(word);
+            } else {
+                builder.append(word.replaceFirst(firstSymbol, firstSymbol.toUpperCase()));
+            }
+
+            if (index != lenght - 1) {
+                builder.append(" ");
+            }
+        }
+
+        return builder.toString();
+    }
+
+    // (10/10)
+    public static void hexLattice(int n) {
 
     }
 }
