@@ -46,7 +46,7 @@ public class Crawler {
     }
 
     // HTTP request form.
-    private static void requestForm(PrintWriter post, URLDepthPair page) throws MalformedURLException {
+    private static void requestForm(PrintWriter post, URLDepthPair page) {
         post.println("GET " + page.getPath() + " HTTP/1.1");
         post.println("Host: " + page.getHost());
         post.println("Connection: close");
@@ -59,6 +59,7 @@ public class Crawler {
          * for example:
          *  http://www.all-met.narod.ru/
          *  http://www.rgrafika.ru/
+         *  http://economicus.ru/site/grebenikov/E_Micro/index.html
          **/
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

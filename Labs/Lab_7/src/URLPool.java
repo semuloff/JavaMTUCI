@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class URLPool {
-    LinkedList<URLDepthPair> rawLinks;
-    LinkedList<URLDepthPair> processedLinks;
+    private LinkedList<URLDepthPair> rawLinks;
+    private LinkedList<URLDepthPair> processedLinks;
 
     private int maxDepth;
 
