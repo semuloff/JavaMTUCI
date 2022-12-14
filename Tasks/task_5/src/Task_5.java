@@ -1,5 +1,6 @@
 package Tasks.task_5.src;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Task_5 {
@@ -31,8 +32,18 @@ public class Task_5 {
         System.out.println(sumDigProd(1, 2, 3, 4, 5, 6)); // sumDigProd(1, 2, 3, 4, 5, 6) -> 2
 
         // (5/10)
-        prettyPrint("(4/10)", "sameVowelGroup");
-        System.out.println();
+        prettyPrint("(5/10)", "sameVowelGroup");
+        System.out.println(sameVowelGroup(new String[] {"toe", "ocelot", "maniac"})); // ["toe", "ocelot", "maniac"] -> ["toe", "ocelot"]
+        System.out.println(sameVowelGroup(new String[] {"many", "carriage", "emit", "apricot", "animal"})); // ["many", "carriage", "emit", "apricot", "animal"] -> ["many"]
+        System.out.println(sameVowelGroup(new String[] {"hoops", "chuff", "bot", "bottom"})); // ["hoops", "chuff", "bot", "bottom"] -> ["hoops", "bot", "bottom"]
+
+        // (6/10)
+        prettyPrint("(6/10)", "validateCard");
+        System.out.println(validateCard(1234567890123456L)); // validateCard(1234567890123456) -> false
+        System.out.println(validateCard(1234567890123452L)); // validateCard(1234567890123452) -> true
+
+        // (7/10)
+        prettyPrint("(7/10)", "numToEng");
     }
     
     // PrettyPrint
@@ -62,11 +73,11 @@ public class Task_5 {
         for (int index = 0, lenght = code.length; index < lenght; index++) {
             if (index == 0) {
                 symbol = (char) code[index];
-                line += Character.toString(symbol);
+                line += symbol;
                 continue;
             }
             symbol = (char) ((int) line.charAt(index - 1) + code[index]);
-            line += Character.toString(symbol);
+            line += symbol;
         }
 
         return line;
@@ -84,29 +95,28 @@ public class Task_5 {
         // assert: xCoord (A-H), yCoord (1-8).
         switch (figure) {
             case "King":
-                return (Math.abs(yStartCoord - yEndCoord) <= 1 && Math.abs(((int) xStartCoord - (int) xEndCoord)) <= 1) ?
-                        true : false;
+                return (Math.abs(yStartCoord - yEndCoord) <= 1 && Math.abs(((int) xStartCoord - (int) xEndCoord)) <= 1);
             case "Queen":
                 if (yStartCoord == yEndCoord) {
-                    return (Math.abs(((int) xStartCoord - (int) xEndCoord)) >= 0) ? true : false;
+                    return (Math.abs(((int) xStartCoord - (int) xEndCoord)) >= 0);
                 } else if ((Math.abs(yStartCoord - yEndCoord) == Math.abs(((int) xStartCoord - (int) xEndCoord)))) {
                     return true;
                 } else {
-                    return ((int) xStartCoord == (int) xEndCoord) ? true : false;
+                    return ((int) xStartCoord == (int) xEndCoord);
                 }
             case "Rook":
                 if (yStartCoord == yEndCoord) {
                     return true;
-//                    return (Math.abs(((int) xStartCoord - (int) xEndCoord)) >= 0) ? true : false;
+//                    return (Math.abs(((int) xStartCoord - (int) xEndCoord)) >= 0);
                 } else {
-                    return ((int) xStartCoord == (int) xEndCoord) ? true : false;
+                    return ((int) xStartCoord == (int) xEndCoord);
                 }
             case "Knight":
                 if ((Math.abs(((int) xStartCoord - (int) xEndCoord)) == 2 && Math.abs(yStartCoord - yEndCoord) == 1)
                         || Math.abs(yStartCoord - yEndCoord) == 2 && Math.abs(((int) xStartCoord - (int) xEndCoord)) == 1) {
                     return true;
                 } else {
-                    return (((int) xStartCoord == (int) xEndCoord) && yStartCoord == yEndCoord) ? true : false;
+                    return (((int) xStartCoord == (int) xEndCoord) && yStartCoord == yEndCoord);
                 }
             case "Bishop":
                 return (Math.abs(yStartCoord - yEndCoord) == Math.abs(((int) xStartCoord - (int) xEndCoord))) ? true : false;
@@ -117,10 +127,11 @@ public class Task_5 {
                             return true;
                         }
                     } else {
-                        return (yEndCoord - yStartCoord <= 1 && yEndCoord - yStartCoord >= 0) ? true : false;
+                        return (yEndCoord - yStartCoord <= 1 && yEndCoord - yStartCoord >= 0);
                     }
                 }
         }
+
         return false;
     }
 
@@ -174,7 +185,91 @@ public class Task_5 {
     }
 
     // (5/10)
-    public static void sameVowelGroup() {
+    public static ArrayList<String> sameVowelGroup(String[] words) {
+        // Desirable and undesirable vowels.
+        String VOWELS = "aeiou";
+        String firstWord = words[0];
+        String necessaryVowels = "";
+
+        for (int indexSymb = 0, lenghtWord = firstWord.length(); indexSymb < lenghtWord; indexSymb++) {
+            String part = String.valueOf(firstWord.charAt(indexSymb));
+            if (VOWELS.contains(part)) {
+                necessaryVowels += part;
+                VOWELS = VOWELS.replace(part, "");
+            }
+        }
+
+        ArrayList<String> resultWords = new ArrayList<>();
+
+        for (int indexWord = 0, lenghtArray = words.length; indexWord < lenghtArray; indexWord++) {
+            String word = words[indexWord];
+            String symbol;
+            boolean flag = true;
+
+            for (int indexVowels = 0, necessaryVowelsLenght = necessaryVowels.length(); indexVowels < necessaryVowelsLenght; indexVowels++) {
+                if (!word.contains(String.valueOf(necessaryVowels.charAt(indexVowels)))) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            if (flag) {
+                for (int indexVowels = 0, vowelsLenght = VOWELS.length(); indexVowels < vowelsLenght; indexVowels++) {
+                    if (word.contains(String.valueOf(VOWELS.charAt(indexVowels)))) {
+                        flag = false;
+                        break;
+                    }
+                }
+
+                if (flag) {
+                    resultWords.add(word);
+                }
+            }
+        }
+
+        return resultWords;
+    }
+
+    // (6/10)
+    public static boolean validateCard(long number) {
+        String tempOne = Long.toString(number / 10);
+        String tempTwo = "";
+
+        for (int start = tempOne.length() - 1, end = 0; start >= end; start--) {
+            tempTwo += tempOne.charAt(start);
+        }
+
+        tempOne = "";
+
+        for (int start = 0, end = tempTwo.length(); start < end; start++) {
+            String partStrType = String.valueOf(tempTwo.charAt(start));
+            short partShortType = Short.parseShort(partStrType);
+
+            if ((start + 1) % 2 == 1) {
+                if (partShortType * 2 / 10 > 0) {
+                    tempOne += String.valueOf(partShortType * 2 / 10 + (partShortType * 2) % 10);
+                } else {
+                    tempOne += String.valueOf(partShortType * 2);
+                }
+            } else {
+                tempOne += partStrType;
+            }
+        }
+
+        long pleasant = Long.parseLong(tempOne);
+        short sum = 0;
+
+        while (pleasant > 0) {
+            sum += pleasant % 10;
+            pleasant /= 10;
+        }
+
+        return (10 - sum % 10 == number % 10);
+    }
+
+    // (7/10)
+    public static void numToEng(short number) {
+
     }
 }
 
