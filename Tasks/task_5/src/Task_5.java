@@ -11,66 +11,70 @@ public class Task_5 {
 
     public static void main(String[] args) {
         // (1/10)
-//        prettyPrint("(1/10)", "encrypt & decrypt");
-//        System.out.println(encrypt("Hello")); // ("Hello") -> [72, 29, 7, 0, 3]
-//        System.out.println(decrypt(new int[]{72, 33, -73, 84, -12, -3, 13, -13, -68})); // [ 72, 33, -73, 84, -12, -3, 13, -13, -68 ]) -> "Hi there!"
-//        System.out.println(encrypt("Sunshine")); // "Sunshine" -> [83, 34, -7, 5, -11, 1, 5, -9]
-//
-//        // (2/10)
-//        prettyPrint("(2/10)", "canMove");
-//        System.out.println(canMove("Rook", "A8", "H8")); // ("Rook", "A8", "H8") -> true
-//        System.out.println(canMove("Bishop", "A7", "G1")); // ("Bishop", "A7", "G1") -> true
-//        System.out.println(canMove("Queen", "C4", "D6")); // ("Queen", "C4", "D6") -> false
-//
-//        // (3/10)
-//        prettyPrint("(3/10)", "canComplete");
-//        System.out.println(canComplete("butl", "beautiful")); // canComplete("butl", "beautiful") -> true
-//        System.out.println(canComplete("butlz", "beautiful")); // canComplete("butlz", "beautiful") -> false
-//        System.out.println(canComplete("tulb", "beautiful")); // canComplete("tulb", "beautiful") -> false
-//        System.out.println(canComplete("bbutl", "beautiful")); // canComplete("bbutl", "beautiful") -> false
-//
-//        // (4/10)
-//        prettyPrint("(4/10)", "sumDigProd");
-//        System.out.println(sumDigProd(16, 28)); // sumDigProd(16, 28) -> 6
-//        System.out.println(sumDigProd(0)); // sumDigProd(0) -> 0
-//        System.out.println(sumDigProd(1, 2, 3, 4, 5, 6)); // sumDigProd(1, 2, 3, 4, 5, 6) -> 2
-//
-//        // (5/10)
-//        prettyPrint("(5/10)", "sameVowelGroup");
-//        System.out.println(sameVowelGroup(new String[] {"toe", "ocelot", "maniac"})); // ["toe", "ocelot", "maniac"] -> ["toe", "ocelot"]
-//        System.out.println(sameVowelGroup(new String[] {"many", "carriage", "emit", "apricot", "animal"})); // ["many", "carriage", "emit", "apricot", "animal"] -> ["many"]
-//        System.out.println(sameVowelGroup(new String[] {"hoops", "chuff", "bot", "bottom"})); // ["hoops", "chuff", "bot", "bottom"] -> ["hoops", "bot", "bottom"]
-//
-//        // (6/10)
-//        prettyPrint("(6/10)", "validateCard");
-//        System.out.println(validateCard(1234567890123456L)); // validateCard(1234567890123456) -> false
-//        System.out.println(validateCard(1234567890123452L)); // validateCard(1234567890123452) -> true
+        prettyPrint("(1/10)", "encrypt & decrypt");
+        System.out.println(encrypt("Hello")); // ("Hello") -> [72, 29, 7, 0, 3]
+        System.out.println(decrypt(new int[]{72, 33, -73, 84, -12, -3, 13, -13, -68})); // [ 72, 33, -73, 84, -12, -3, 13, -13, -68 ]) -> "Hi there!"
+        System.out.println(encrypt("Sunshine")); // "Sunshine" -> [83, 34, -7, 5, -11, 1, 5, -9]
 
-//        // (7/10)
-//        prettyPrint("(7/10)", "numToEng & numToRus");
-//        System.out.println(numToEng(0)); // numToEng(0) -> "zero"
-//        System.out.println(numToEng(18)); // numToEng(18) -> "eighteen"
-//        System.out.println(numToEng(126)); // numToEng(126) -> "one hundred twenty six"
-//        System.out.println(numToEng(909)); // numToEng(909) -> "nine hundred nine"
-//
-//        // (8/10)
-//        prettyPrint("(8/10)", "getSha256Hash");
-//        try {
-//            System.out.println(getSha256Hash("password123"));
-//            System.out.println(getSha256Hash("Fluffy@home"));
-//            System.out.println(getSha256Hash("Hey dude!"));
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        // (9/10)
-//        prettyPrint("(9/10)", "correctTitle");
-//        System.out.println(correctTitle("jOn SnoW, kINg IN th-E no-Rth.")); // -> "Jon Snow, King in the North."
-//        System.out.println(correctTitle("sansa stark, lady of winterfell.")); // -> "Sansa Stark, Lady of Winterfell."
-//        System.out.println(correctTitle("TYRION LANNISTER, HAND OF THE QUEEN.")); // -> "Tyrion Lannister, Hand of the Queen."
+        // (2/10)
+        prettyPrint("(2/10)", "canMove");
+        System.out.println(canMove("Rook", "A8", "H8")); // ("Rook", "A8", "H8") -> true
+        System.out.println(canMove("Bishop", "A7", "G1")); // ("Bishop", "A7", "G1") -> true
+        System.out.println(canMove("Queen", "C4", "D6")); // ("Queen", "C4", "D6") -> false
+
+        // (3/10)
+        prettyPrint("(3/10)", "canComplete");
+        System.out.println(canComplete("butl", "beautiful")); // canComplete("butl", "beautiful") -> true
+        System.out.println(canComplete("butlz", "beautiful")); // canComplete("butlz", "beautiful") -> false
+        System.out.println(canComplete("tulb", "beautiful")); // canComplete("tulb", "beautiful") -> false
+        System.out.println(canComplete("bbutl", "beautiful")); // canComplete("bbutl", "beautiful") -> false
+
+        // (4/10)
+        prettyPrint("(4/10)", "sumDigProd");
+        System.out.println(sumDigProd(16, 28)); // sumDigProd(16, 28) -> 6
+        System.out.println(sumDigProd(0)); // sumDigProd(0) -> 0
+        System.out.println(sumDigProd(1, 2, 3, 4, 5, 6)); // sumDigProd(1, 2, 3, 4, 5, 6) -> 2
+
+        // (5/10)
+        prettyPrint("(5/10)", "sameVowelGroup");
+        System.out.println(sameVowelGroup(new String[] {"toe", "ocelot", "maniac"})); // ["toe", "ocelot", "maniac"] -> ["toe", "ocelot"]
+        System.out.println(sameVowelGroup(new String[] {"many", "carriage", "emit", "apricot", "animal"})); // ["many", "carriage", "emit", "apricot", "animal"] -> ["many"]
+        System.out.println(sameVowelGroup(new String[] {"hoops", "chuff", "bot", "bottom"})); // ["hoops", "chuff", "bot", "bottom"] -> ["hoops", "bot", "bottom"]
+
+        // (6/10)
+        prettyPrint("(6/10)", "validateCard");
+        System.out.println(validateCard(1234567890123456L)); // validateCard(1234567890123456) -> false
+        System.out.println(validateCard(1234567890123452L)); // validateCard(1234567890123452) -> true
+
+        // (7/10)
+        prettyPrint("(7/10)", "numToEng & numToRus");
+        System.out.println(numToEng(0)); // numToEng(0) -> "zero"
+        System.out.println(numToEng(18)); // numToEng(18) -> "eighteen"
+        System.out.println(numToEng(126)); // numToEng(126) -> "one hundred twenty six"
+        System.out.println(numToEng(909)); // numToEng(909) -> "nine hundred nine"
+
+        // (8/10)
+        prettyPrint("(8/10)", "getSha256Hash");
+        try {
+            System.out.println(getSha256Hash("password123"));
+            System.out.println(getSha256Hash("Fluffy@home"));
+            System.out.println(getSha256Hash("Hey dude!"));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+        // (9/10)
+        prettyPrint("(9/10)", "correctTitle");
+        System.out.println(correctTitle("jOn SnoW, kINg IN th-E no-Rth.")); // -> "Jon Snow, King in the North."
+        System.out.println(correctTitle("sansa stark, lady of winterfell.")); // -> "Sansa Stark, Lady of Winterfell."
+        System.out.println(correctTitle("TYRION LANNISTER, HAND OF THE QUEEN.")); // -> "Tyrion Lannister, Hand of the Queen."
 
         // (10/10)
         prettyPrint("(10/10)", "hexLattice");
+        System.out.println(hexLattice(1)); // -> image
+        System.out.println(hexLattice(7)); // -> image
+        System.out.println(hexLattice(19)); // -> image
+        System.out.println(hexLattice(21)); // -> Invalid
     }
     
     // PrettyPrint
@@ -640,8 +644,79 @@ public class Task_5 {
     }
 
     // (10/10)
-    public static void hexLattice(int n) {
+    public static String hexLattice(int n) {
+        if (n == 1) {
+            return "o";
+        }
 
+        if (((3 + Math.sqrt(12 * n - 3)) / 6) % 1 != 0) {
+            return "Invalid";
+        }
+
+        // n = 3 * R * (R - 1) + 1.
+        int R = 0;
+
+        // assert: n - isn't invalid.
+        while (R * R - R != (n - 1) / 3) {
+            R++;
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        // First part.
+        for (int depthCount = 0, maxDepth = R - 1; depthCount < maxDepth; depthCount++) {
+            for (int iteration = 0, maxIteration = R - 1 - depthCount; iteration < maxIteration; iteration++) {
+                builder.append(" ");
+            }
+
+            for (int iteration = 0, maxIteration = R + depthCount; iteration < maxIteration; iteration++) {
+                if (iteration + 1 != maxIteration) {
+                    builder.append("o ");
+                } else {
+                    builder.append("o");
+                }
+            }
+
+            for (int iteration = 0, maxIteration = R - 1 - depthCount; iteration < maxIteration; iteration++) {
+                builder.append(" ");
+            }
+
+            builder.append("\n");
+        }
+
+        // Horizontal diagonal.
+        for (int iteration = 0, maxIteration = 2 * R - 1; iteration < maxIteration; iteration++) {
+            if (iteration + 1 != maxIteration) {
+                builder.append("o ");
+            } else {
+                builder.append("o");
+            }
+        }
+
+        builder.append("\n");
+
+        // Second part;
+        for (int depthCount = R - 1, temp = 0; depthCount > 0; depthCount--, temp++) {
+            for (int iteration = R - depthCount; iteration > 0; iteration--) {
+                builder.append(" ");
+            }
+
+            for (int iteration = 0, maxIteration = 2 * R - 2 - temp; iteration < maxIteration; iteration++) {
+                if (iteration + 1 != maxIteration) {
+                    builder.append("o ");
+                } else {
+                    builder.append("o");
+                }
+            }
+
+            for (int iteration = R - depthCount; iteration > 0; iteration--) {
+                builder.append(" ");
+            }
+
+            builder.append("\n");
+        }
+
+        return builder.toString();
     }
 }
 
