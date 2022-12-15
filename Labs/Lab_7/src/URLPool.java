@@ -38,7 +38,18 @@ public class URLPool {
     // Adding a pair to the pool.
     synchronized void put(URLDepthPair pair) {
         if (pair.getDepth() < maxDepth) {
-            rawLinks.addLast(pair);
+            boolean flag = true;
+
+            for (URLDepthPair element : processedLinks) {
+                if ((pair.getURL().equals(element.getURL()))) {
+                    flag = false;
+                }
+            }
+
+            if (flag) {
+                rawLinks.addLast(pair);
+            }
+
             this.notify();
         } else {
             processedLinks.addLast(pair);

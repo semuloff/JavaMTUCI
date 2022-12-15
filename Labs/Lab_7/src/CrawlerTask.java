@@ -26,6 +26,7 @@ public class CrawlerTask implements Runnable {
                 HashSet<String> URLs = null;
 
                 if (currentPair != null) {
+
                     URLs = Crawler.scan(currentPair);
                 }
 

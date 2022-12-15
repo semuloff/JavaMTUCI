@@ -106,7 +106,7 @@ public class Crawler {
 
         while (ThreadController.countWaitingThreads != countThreads) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
