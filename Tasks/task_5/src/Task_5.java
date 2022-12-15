@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Task_5 {
-
     public static void main(String[] args) {
         // (1/10)
         prettyPrint("(1/10)", "encrypt & decrypt");
@@ -56,16 +55,16 @@ public class Task_5 {
         // (8/10)
         prettyPrint("(8/10)", "getSha256Hash");
         try {
-            System.out.println(getSha256Hash("password123"));
-            System.out.println(getSha256Hash("Fluffy@home"));
-            System.out.println(getSha256Hash("Hey dude!"));
+            System.out.println(getSha256Hash("password123")); // -> ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f
+            System.out.println(getSha256Hash("Fluffy@home")); // -> dcc1ac3a7148a2d9f47b7dbe3d733040c335b2a3d8adc7984e0c483c5b2c1665
+            System.out.println(getSha256Hash("Hey dude!")); // -> 14f997f08b8ad032dcb274198684f995d34043f9da00acd904dc72836359ae0f
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
 
         // (9/10)
         prettyPrint("(9/10)", "correctTitle");
-        System.out.println(correctTitle("jOn SnoW, kINg IN th-E no-Rth.")); // -> "Jon Snow, King in the North."
+        System.out.println(correctTitle("jOn SnoW, kINg IN th-E no-Rth.")); // -> "Jon Snow, King in Th-E No-Rth."
         System.out.println(correctTitle("sansa stark, lady of winterfell.")); // -> "Sansa Stark, Lady of Winterfell."
         System.out.println(correctTitle("TYRION LANNISTER, HAND OF THE QUEEN.")); // -> "Tyrion Lannister, Hand of the Queen."
 
