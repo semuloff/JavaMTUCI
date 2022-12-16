@@ -11,8 +11,9 @@ public class URLDepthPair<E, N> {
     private java.net.URL urlFormat;
 
     static final String REGEX_PATTERN = "<a href=\"(http://www\\.[a-zA-Z0-9]+\\.[a-z]+" +
-            "/[-a-zA-Z0-9+?&@#/%=~._|]*|http://[a-zA-Z0-9]+\\.[a-z]+" +
-            "/[-a-zA-Z0-9+?&@#/%=~._|]*)\"";
+            "/[-a-zA-Z0-9+&@#/%=~._|]*|http://[a-zA-Z0-9]+\\.[a-z]+" +
+            "/[-a-zA-Z0-9+&@#/%=~._|]*|https://www\\.[a-zA-Z0-9]+\\.[a-z]+" +
+            "/[-a-zA-Z0-9+&@#/%=~._|]*|https://[a-zA-Z0-9]+\\.[a-z]+/[-a-zA-Z0-9+&@#/%=~._|]*)\"";
 
     static Pattern pattern = Pattern.compile(REGEX_PATTERN);
 
@@ -36,7 +37,7 @@ public class URLDepthPair<E, N> {
     }
 
     String getPath() {
-         return urlFormat.getPath();
+        return urlFormat.getPath();
     }
 
     // Determination of links of the required format from a piece of HTML code.
