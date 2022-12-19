@@ -23,6 +23,31 @@ public class Task_6 {
         // (3/10)
 //        prettyPrint("(3/10)", "validColor");
 
+        // (4/10)
+//        prettyPrint("(4/10)", "stripUrlParams");
+
+        // (5/10)
+//        prettyPrint("(5/10)", "getHashTags");
+//        System.out.println(getHashTags("How the Avocado Became the Fruit of the Global Trade")); // -> ["#avocado", "#became", "#global"]
+//        System.out.println(getHashTags("Why You Will Probably Pay More for Your Christmas Tree This Year")); // -> ["#christmas", "#probably", "#will"]
+//        System.out.println(getHashTags("Hey Parents, Surprise, Fruit Juice Is Not Fruit")); // -> ["#surprise", "#parents", "#fruit"]
+//        System.out.println(getHashTags("Visualizing Science")); // -> ["#visualizing", "#science"]
+
+        // (6/10)
+//        prettyPrint("(6/10)", "ulam");
+
+        // (7/10)
+//        prettyPrint("(7/10)", "longestNonrepeatingSubstring");
+//        System.out.println(longestNonrepeatingSubstring("abcabcbb")); // "abcabcbb" ➞ "abc"
+//        System.out.println(longestNonrepeatingSubstring("aaaaaa")); // "aaaaaa" -> "a"
+//        System.out.println(longestNonrepeatingSubstring("abcde")); // "abcde" -> "abcde"
+//        System.out.println(longestNonrepeatingSubstring("abcda")); // "abcda" -> "abcd"
+
+        // (8/10)
+//        prettyPrint("(8/10)", "convertToRoman");
+//        System.out.println(convertToRoman(2)); // 2 ->  "II"
+//        System.out.println(convertToRoman(12)); // 12 ->  "XII"
+//        System.out.println(convertToRoman(16)); // 16 ->  "XVI"
 
         // (9/10)
 //        prettyPrint("(9/10)", "formula");
@@ -108,6 +133,80 @@ public class Task_6 {
 
     }
 
+    // (4/10)
+    public static void stripUrlParams(String url) {
+
+    }
+
+    // (5/10)
+    public static LinkedList<String> getHashTags(String title) {
+        LinkedList<String> words = new LinkedList<>(List.of(
+                title.toLowerCase().replaceAll("[?!,\\.]", "").split("\s+")));
+        words.sort(Comparator.comparingInt(String::length).reversed());
+
+        LinkedList<String> hashTags = new LinkedList<>();
+
+        for (String word : words) {
+            if (hashTags.size() < 3) {
+                hashTags.add("#" + word);
+            } else {
+                break;
+            }
+        }
+
+        return hashTags;
+    }
+
+    // (6/10)
+    public static void ulam (int number) {
+
+    }
+
+    // (7/10)
+    public static String longestNonrepeatingSubstring(String line) {
+        LinkedList<String> words = new LinkedList<>(List.of(line.split("\s+")));
+
+        LinkedHashSet<String> globalLongest = new LinkedHashSet<>();
+        LinkedHashSet<String> currentLongest = new LinkedHashSet<>();
+
+        for (String element : words) {
+            if (!currentLongest.contains(element)) {
+                currentLongest.add(element);
+                continue;
+            }
+
+            if (currentLongest.size() > globalLongest.size()) {
+                globalLongest.clear();
+                globalLongest.addAll(currentLongest);
+            }
+
+            currentLongest.clear();
+            currentLongest.add(element);
+        }
+
+        if (currentLongest.size() > globalLongest.size()) {
+            globalLongest.clear();
+            globalLongest.addAll(currentLongest);
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (String part : globalLongest) {
+            builder.append(part);
+        }
+
+        return builder.toString();
+    }
+
+    // (8/10)
+    public static String convertToRoman(int number) {
+        String[] thousands = {"", "M", "MM", "MMM"};
+        String[] hundreds = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        String[] tens = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        String[] units = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+
+        return thousands[number / 1000] + hundreds[(number % 1000) / 100] + tens[(number % 100) / 10] + units[number % 10];
+    }
+
     // (9/10)
     public static boolean formula(String formula) {
         String[] equations = formula.split("\s+=\s+");
@@ -169,4 +268,3 @@ public class Task_6 {
         return false;
     }
 }
-
