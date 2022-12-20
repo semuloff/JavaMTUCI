@@ -5,65 +5,72 @@ import java.util.*;
 public class Task_6 {
     public static void main(String[] args) {
         // (1/10)
-//        prettyPrint("(1/10)", "bell");
-//        System.out.println(bell(1)); // 1 -> 1
-//        System.out.println(bell(2)); // 2 -> 2
-//        System.out.println(bell(3)); // 3 -> 5
+        prettyPrint("(1/10)", "bell");
+        System.out.println(bell(1)); // 1 -> 1
+        System.out.println(bell(2)); // 2 -> 2
+        System.out.println(bell(3)); // 3 -> 5
 
         // (2/10)
-//        prettyPrint("(2/10)", "translateWord & translateSentence");
-//        System.out.println(translateWord("flag")); // "flag" -> "agflay"
-//        System.out.println(translateWord("Apple")); // "Apple" -> "Appleyay"
-//        System.out.println(translateWord("button")); // "button" -> "uttonbay"
-//        System.out.println(translateWord("")); // "" -> ""
-//        System.out.println(translateSentence("I like to eat honey waffles.")); // -> "Iyay ikelay otay eatyay oneyhay afflesway."
-//        System.out.println(translateSentence("Do you think it is going to rain today?")); // -> "Oday youyay inkthay ityay isyay oinggay otay ainray odaytay?"
+        prettyPrint("(2/10)", "translateWord & translateSentence");
+        System.out.println(translateWord("flag")); // "flag" -> "agflay"
+        System.out.println(translateWord("Apple")); // "Apple" -> "Appleyay"
+        System.out.println(translateWord("button")); // "button" -> "uttonbay"
+        System.out.println(translateWord("")); // "" -> ""
+        System.out.println(translateSentence("I like to eat honey waffles.")); // -> "Iyay ikelay otay eatyay oneyhay afflesway."
+        System.out.println(translateSentence("Do you think it is going to rain today?")); // -> "Oday youyay inkthay ityay isyay oinggay otay ainray odaytay?"
 
 
         // (3/10)
-//        prettyPrint("(3/10)", "validColor");
+        prettyPrint("(3/10)", "validColor");
+        System.out.println(validColor("rgb(0,0,0)")); // "rgb(0,0,0)" -> true
+        System.out.println(validColor("rgb(0,,0)")); // "rgb(0,,0)" -> false
+        System.out.println(validColor("rgb(255,256,255)")); // "rgb(255,256,255)" -> false
+        System.out.println(validColor("rgba(0,0,0,0.123456789)")); // "rgba(0,0,0,0.123456789)" -> true
 
         // (4/10)
-//        prettyPrint("(4/10)", "stripUrlParams");
-//        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2")); // -> "https://edabit.com?a=2&b=2"
-//        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2", new String[]{"b"})); // -> "https://edabit.com?a=2"
-//        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2", new String[]{"a", "b"})); // -> "https://edabit.com"
+        prettyPrint("(4/10)", "stripUrlParams");
+        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2")); // -> "https://edabit.com?a=2&b=2"
+        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2", new String[]{"b"})); // -> "https://edabit.com?a=2"
+        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2", new String[]{"a", "b"})); // -> "https://edabit.com"
 
         // (5/10)
-//        prettyPrint("(5/10)", "getHashTags");
-//        System.out.println(getHashTags("How the Avocado Became the Fruit of the Global Trade")); // -> ["#avocado", "#became", "#global"]
-//        System.out.println(getHashTags("Why You Will Probably Pay More for Your Christmas Tree This Year")); // -> ["#christmas", "#probably", "#will"]
-//        System.out.println(getHashTags("Hey Parents, Surprise, Fruit Juice Is Not Fruit")); // -> ["#surprise", "#parents", "#fruit"]
-//        System.out.println(getHashTags("Visualizing Science")); // -> ["#visualizing", "#science"]
+        prettyPrint("(5/10)", "getHashTags");
+        System.out.println(getHashTags("How the Avocado Became the Fruit of the Global Trade")); // -> ["#avocado", "#became", "#global"]
+        System.out.println(getHashTags("Why You Will Probably Pay More for Your Christmas Tree This Year")); // -> ["#christmas", "#probably", "#will"]
+        System.out.println(getHashTags("Hey Parents, Surprise, Fruit Juice Is Not Fruit")); // -> ["#surprise", "#parents", "#fruit"]
+        System.out.println(getHashTags("Visualizing Science")); // -> ["#visualizing", "#science"]
 
         // (6/10)
-//        prettyPrint("(6/10)", "ulam");
+        prettyPrint("(6/10)", "ulam");
+        System.out.println(ulam(4)); // 4 -> 4
+        System.out.println(ulam(9)); // 9 -> 16
+        System.out.println(ulam(206)); // 206 -> 1856
 
         // (7/10)
-//        prettyPrint("(7/10)", "longestNonrepeatingSubstring");
-//        System.out.println(longestNonrepeatingSubstring("abcabcbb")); // "abcabcbb" ➞ "abc"
-//        System.out.println(longestNonrepeatingSubstring("aaaaaa")); // "aaaaaa" -> "a"
-//        System.out.println(longestNonrepeatingSubstring("abcde")); // "abcde" -> "abcde"
-//        System.out.println(longestNonrepeatingSubstring("abcda")); // "abcda" -> "abcd"
+        prettyPrint("(7/10)", "longestNonrepeatingSubstring");
+        System.out.println(longestNonrepeatingSubstring("abcabcbb")); // "abcabcbb" -> "abc"
+        System.out.println(longestNonrepeatingSubstring("aaaaaa")); // "aaaaaa" -> "a"
+        System.out.println(longestNonrepeatingSubstring("abcde")); // "abcde" -> "abcde"
+        System.out.println(longestNonrepeatingSubstring("abcda")); // "abcda" -> "abcd"
 
         // (8/10)
-//        prettyPrint("(8/10)", "convertToRoman");
-//        System.out.println(convertToRoman(2)); // 2 ->  "II"
-//        System.out.println(convertToRoman(12)); // 12 ->  "XII"
-//        System.out.println(convertToRoman(16)); // 16 ->  "XVI"
+        prettyPrint("(8/10)", "convertToRoman");
+        System.out.println(convertToRoman(2)); // 2 -> "II"
+        System.out.println(convertToRoman(12)); // 12 -> "XII"
+        System.out.println(convertToRoman(16)); // 16 -> "XVI"
 
         // (9/10)
-//        prettyPrint("(9/10)", "formula");
-//        System.out.println(formula("6 * 4 = 24")); // "6 * 4 = 24" -> true
-//        System.out.println(formula("18 / 17 = 2")); // "18 / 17 = 2" -> false
-//        System.out.println(formula("16 * 10 = 160 = 14 + 120")); // "16 * 10 = 160 = 14 + 120" -> false
+        prettyPrint("(9/10)", "formula");
+        System.out.println(formula("6 * 4 = 24")); // "6 * 4 = 24" -> true
+        System.out.println(formula("18 / 17 = 2")); // "18 / 17 = 2" -> false
+        System.out.println(formula("16 * 10 = 160 = 14 + 120")); // "16 * 10 = 160 = 14 + 120" -> false
 
         // (10/10)
-//        prettyPrint("(10/10)", "palindromedescendant");
-//        System.out.println(palindromeDescendant(11211230)); // 11211230 -> true
-//        System.out.println(palindromeDescendant(13001120)); // 13001120 -> true
-//        System.out.println(palindromeDescendant(23336014)); // 23336014 -> true
-//        System.out.println(palindromeDescendant(11)); // 11 -> true
+        prettyPrint("(10/10)", "palindromedescendant");
+        System.out.println(palindromeDescendant(11211230)); // 11211230 -> true
+        System.out.println(palindromeDescendant(13001120)); // 13001120 -> true
+        System.out.println(palindromeDescendant(23336014)); // 23336014 -> true
+        System.out.println(palindromeDescendant(11)); // 11 -> true
     }
     
     // PrettyPrint
@@ -132,8 +139,42 @@ public class Task_6 {
     }
 
     // (3/10)
-    public static void validColor(String rgbValue) {
+    public static boolean validColor(String quess) {
+        if (!"rgb".equals(quess.substring(0, 3))) {
+            return false;
+        }
 
+        boolean isRGBA = quess.charAt(3) == 'a';
+        int n = -1;
+        String[] args = new String[]{"", "", "", ""};
+
+        for (char symbol : quess.toCharArray()) {
+            if (symbol == '(') {
+                n = 0;
+            } else if (symbol == ')') {
+                n = 4;
+            } else if (symbol == ',') {
+                n++;
+            } else if (n >= 0 && n <= 3) {
+                args[n] += symbol;
+            }
+        }
+
+        for (int i = 0; i <= 2; i++)
+            if (args[i].length() == 0) {
+                return false;
+            }
+            else if (Integer.parseInt(args[i]) < 0 || Integer.parseInt(args[i]) > 255) {
+                return false;
+            }
+
+        if (isRGBA) {
+            if (Float.parseFloat(args[3]) < 0 || Float.parseFloat(args[3]) > 1) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     // (4/10)
@@ -214,8 +255,46 @@ public class Task_6 {
     }
 
     // (6/10)
-    public static void ulam (int number) {
+    public static int ulam (int number) {
+        ArrayList<Integer> ulamNumbers = new ArrayList<>(Arrays.asList(1, 2));
 
+        if (number == 1) {
+            return ulamNumbers.get(0);
+        }
+
+        if (number == 2) {
+            return ulamNumbers.get(1);
+        }
+
+        int nextUlam = 3;
+        while (true){
+            if (number == ulamNumbers.size()) {
+                return ulamNumbers.get(number - 1);
+            }
+
+            int count = 0;
+            for (int j = 0; j < ulamNumbers.size() - 1; j++) {
+                for (int k = j + 1; k < ulamNumbers.size(); k++) {
+                    if (ulamNumbers.get(j) + ulamNumbers.get(k) == nextUlam) {
+                        count++;
+                    }
+
+                    if (count > 1) {
+                        break;
+                    }
+                }
+
+                if (count > 1) {
+                    break;
+                }
+            }
+
+            if (count == 1) {
+                ulamNumbers.add(nextUlam);
+            }
+
+            nextUlam++;
+        }
     }
 
     // (7/10)
