@@ -25,6 +25,9 @@ public class Task_6 {
 
         // (4/10)
 //        prettyPrint("(4/10)", "stripUrlParams");
+//        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2")); // -> "https://edabit.com?a=2&b=2"
+//        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2", new String[]{"b"})); // -> "https://edabit.com?a=2"
+//        System.out.println(stripUrlParams("https://edabit.com?a=1&b=2&a=2", new String[]{"a", "b"})); // -> "https://edabit.com"
 
         // (5/10)
 //        prettyPrint("(5/10)", "getHashTags");
@@ -134,8 +137,61 @@ public class Task_6 {
     }
 
     // (4/10)
-    public static void stripUrlParams(String url) {
+    public static String stripUrlParams(String url) {
+        String[] parts = url.split("\\?");
 
+        if (parts.length > 1) {
+            String[] params = parts[1].split("&");
+            HashMap<String,Integer> keyValue = new HashMap<>();
+
+            for (int index = 0, lenght = params.length; index < lenght; index++) {
+                String[] splittedKeyValue = params[index].split("=");
+                String key = splittedKeyValue[0];
+                int value = Integer.valueOf(splittedKeyValue[1]);
+
+                if (!keyValue.containsKey(key)) {
+                    keyValue.put(key, value);
+                } else if (value > keyValue.get(key)) {
+                    keyValue.put(key, value);
+                }
+            }
+
+            return parts[0] + "?" + String.join("&",keyValue.toString().replace("{", "")
+                    .replace("}", "").split(", "));
+        } else {
+            return url;
+        }
+    }
+
+    public static String stripUrlParams(String url, String[] paramsToStrip) {
+        String[] parts = url.split("\\?");
+        String filter = String.join("", paramsToStrip);
+
+        if (parts.length > 1) {
+            String[] params = parts[1].split("&");
+            HashMap<String,Integer> keyValue = new HashMap<>();
+
+            for (int index = 0, lenght = params.length; index < lenght; index++) {
+                String[] splittedKeyValue = params[index].split("=");
+                String key = splittedKeyValue[0];
+                int value = Integer.valueOf(splittedKeyValue[1]);
+
+                if (filter.contains(key)) {
+                    continue;
+                }
+
+                if (!keyValue.containsKey(key)) {
+                    keyValue.put(key, value);
+                } else if (value > keyValue.get(key)){
+                    keyValue.put(key, value);
+                }
+            }
+
+            return parts[0] + ((keyValue.size() > 0) ? "?" : "") + String.join("&",keyValue.toString().replace("{", "")
+                    .replace("}", "").split(", "));
+        } else {
+            return url;
+        }
     }
 
     // (5/10)
