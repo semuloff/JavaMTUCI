@@ -1,6 +1,6 @@
 <!-- Header -->
 
-<h6 align="center">The list of work performed during the semester in the discipline "Information Technology and Programming" student BVT2102 Mullin S.Y..</h6>
+<h4 align="center">The list of work performed during the semester in the discipline "Information Technology and Programming" student BVT2102 Mullin S.Y..</h5>
 <br></br>
 
 
