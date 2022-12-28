@@ -68,11 +68,12 @@ public class Task_6 {
         // (10/10)
         prettyPrint("(10/10)", "palindromedescendant");
         System.out.println(palindromeDescendant(11211230)); // 11211230 -> true
+        System.out.println(palindromeDescendant(11211230)); // 11211230 -> true
         System.out.println(palindromeDescendant(13001120)); // 13001120 -> true
         System.out.println(palindromeDescendant(23336014)); // 23336014 -> true
         System.out.println(palindromeDescendant(11)); // 11 -> true
     }
-    
+
     // PrettyPrint
     public static void prettyPrint(String task, String functionName) {
         System.out.println("\n~~~~~~ " + task + ": " + functionName + " ~~~~~~");
@@ -113,6 +114,7 @@ public class Task_6 {
 
         if (!firstSymbol.matches("[aeiouyAEIOUY]")) {
             String firstVowel = String.valueOf(word.replaceAll("[^aeiouy]", "").charAt(0));
+
             if (firstSymbol.matches("^[a-z]")) {
                 return word.substring(word.indexOf(firstVowel), word.length()) +
                         word.substring(0, word.indexOf(firstVowel)) + "ay";
@@ -144,7 +146,6 @@ public class Task_6 {
             return false;
         }
 
-        boolean isRGBA = quess.charAt(3) == 'a';
         int n = -1;
         String[] args = new String[]{"", "", "", ""};
 
@@ -163,11 +164,11 @@ public class Task_6 {
         for (int i = 0; i <= 2; i++)
             if (args[i].length() == 0) {
                 return false;
-            }
-            else if (Integer.parseInt(args[i]) < 0 || Integer.parseInt(args[i]) > 255) {
+            } else if (Integer.parseInt(args[i]) < 0 || Integer.parseInt(args[i]) > 255) {
                 return false;
             }
 
+        boolean isRGBA = quess.charAt(3) == 'a';
         if (isRGBA) {
             if (Float.parseFloat(args[3]) < 0 || Float.parseFloat(args[3]) > 1) {
                 return false;
@@ -237,8 +238,8 @@ public class Task_6 {
 
     // (5/10)
     public static LinkedList<String> getHashTags(String title) {
-        LinkedList<String> words = new LinkedList<>(List.of(
-                title.toLowerCase().replaceAll("[?!,\\.]", "").split("\s+")));
+        LinkedList<String> words = new LinkedList<>(List.of(title.toLowerCase().
+                replaceAll("[?!,\\.]", "").split("\s+")));
         words.sort(Comparator.comparingInt(String::length).reversed());
 
         LinkedList<String> hashTags = new LinkedList<>();
@@ -267,7 +268,8 @@ public class Task_6 {
         }
 
         int nextUlam = 3;
-        while (true){
+
+        while (true) {
             if (number == ulamNumbers.size()) {
                 return ulamNumbers.get(number - 1);
             }
@@ -299,37 +301,31 @@ public class Task_6 {
 
     // (7/10)
     public static String longestNonrepeatingSubstring(String line) {
-        LinkedList<String> words = new LinkedList<>(List.of(line.split("\s+")));
-
-        LinkedHashSet<String> globalLongest = new LinkedHashSet<>();
+        ArrayList<String> digits = new ArrayList<>(List.of(line.split("")));
+        LinkedHashSet<String> totalLongest = new LinkedHashSet<>();
         LinkedHashSet<String> currentLongest = new LinkedHashSet<>();
 
-        for (String element : words) {
-            if (!currentLongest.contains(element)) {
+        for (String element: digits) {
+            if (!currentLongest.contains(element)){
                 currentLongest.add(element);
                 continue;
             }
 
-            if (currentLongest.size() > globalLongest.size()) {
-                globalLongest.clear();
-                globalLongest.addAll(currentLongest);
+            if (currentLongest.size() > totalLongest.size()){
+                totalLongest.clear();
+                totalLongest.addAll(currentLongest);
             }
 
             currentLongest.clear();
             currentLongest.add(element);
         }
 
-        if (currentLongest.size() > globalLongest.size()) {
-            globalLongest.clear();
-            globalLongest.addAll(currentLongest);
+        if (currentLongest.size() > totalLongest.size()){
+            totalLongest.clear();
+            totalLongest.addAll(currentLongest);
         }
 
-        StringBuilder builder = new StringBuilder();
-        for (String part : globalLongest) {
-            builder.append(part);
-        }
-
-        return builder.toString();
+        return totalLongest.toString();
     }
 
     // (8/10)
@@ -375,31 +371,32 @@ public class Task_6 {
     }
 
     // (10/10)
-    public static boolean palindromeDescendant(int number) {
-        // assert: number's lenght is even.
-        while (number / 10 > 0) {
-            StringBuilder builder = new StringBuilder();
+    public static boolean palindromeDescendant(long number) {
+        String s = String.valueOf(number);
 
-            while (number > 0) {
-                int firstPart = number % 10;
-                number /= 10;
-                builder.append(firstPart + number % 10);
-                number /= 10;
-            }
+        if (s.length() <= 1) {
+            return false;
+        }
 
-            boolean quess = true;
-            String line = builder.toString();
-
-            for (int middle = line.length() / 2 - 1, balance = 0; middle >= 0; middle--, balance++) {
-                if (!(line.charAt(middle) == line.charAt(middle + 2 * balance + 1))) {
-                    quess = false;
-                    number = Integer.valueOf(builder.toString());
-                }
-            }
-
+        if (isPalindrome(s)) {
             return true;
         }
 
-        return false;
+        return palindromeDescendant(Long.parseLong(makeSumOfPairs(s)));
+    }
+
+    public static boolean isPalindrome(String item) {
+        return item.equals(new StringBuilder(item).reverse().toString());
+    }
+
+    public static String makeSumOfPairs(String number) {
+        String[] parts = number.split("");
+        ArrayList<String> newNum = new ArrayList<>();
+
+        for (int index = 0, limit = parts.length - 1; index < limit; index += 2){
+            newNum.add(String.valueOf(Integer.parseInt(parts[index]) + Integer.parseInt(parts[index + 1])));
+        }
+
+        return String.join("", newNum);
     }
 }
